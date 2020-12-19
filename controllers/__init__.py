@@ -1,9 +1,11 @@
-from controllers.books_controller import books
 from controllers.auth_controller import auth
-from controllers.book_images_controller import book_images
+from controllers.UserStudyHistory_controller import userstudyhistory
+from controllers.UserWorkHistory_controller import userworkhistory
+from controllers.User_controller import user
 
 registerable_controllers = [
     auth,
-    books,
-    book_images
+    userstudyhistory,
+    userworkhistory,
+    user
 ]

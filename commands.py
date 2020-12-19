@@ -20,29 +20,76 @@ def drop_db():
 
 @db_commands.cli.command("seed")
 def seed_db():
-    from models.Book import Book
+
     from models.User import User
+    from models.UserStudyHistory import UserStudyHistory
+    from models.UserWorkHistory import UserWorkHistory
     from main import bcrypt
     from faker import Faker
     import random
 
+    from datetime import datetime
+
+    now = datetime.now()
+
     faker = Faker()
     users = []
 
+    # Create fake users
+
     for i in range(5):
         user = User()
-        user.email = f"test{i}@test.com"
+        user.username = faker.word()
+        user.first_name = faker.first_name()
+        user.last_name = faker.last_name()
+        user.created_at = now.strftime('%Y-%m-%d %H:%M:%S')
+        user.email = faker.free_email()
         user.password = bcrypt.generate_password_hash("123456").decode("utf-8")
+        user.mobile = faker.phone_number()
+        user.city = faker.city()
+        user.country = faker.country()
+        user.dob = faker.date_of_birth()
+
         db.session.add(user)
         users.append(user)
 
     db.session.commit()
-
-    for i in range(20):
-        book = Book()
-        book.title = faker.catch_phrase()
-        book.user_id = random.choice(users).id
-        db.session.add(book)
     
+    qualifications = ['bachelor', 'master', 'honours']
+    institutions = ['rmit', 'latrobe', 'monash']
+    for i in range(20):
+
+        userstudyhistory = UserStudyHistory()
+        userstudyhistory.username = random.choice(users).username
+        userstudyhistory.qualification_title = random.choice(qualifications)
+        userstudyhistory.institution = random.choice(institutions)
+        userstudyhistory.city = faker.city()
+        userstudyhistory.country = faker.country()
+        userstudyhistory.date_start = faker.date_of_birth()
+        userstudyhistory.date_end = faker.date_of_birth()
+
+        db.session.add(userstudyhistory)
+
+
+    db.session.commit()
+
+    company = ['nab', 'aws', 'microsoft']
+    job_title = ['engineer', 'developer', 'architect']
+    for i in range(20):
+
+        userworkhistory = UserWorkHistory()
+
+        userworkhistory.username = random.choice(users).username
+        userworkhistory.job_title = random.choice(job_title)
+        userworkhistory.company = random.choice(company)
+        userworkhistory.city = faker.city()
+        userworkhistory.country = faker.country()
+        userworkhistory.date_start = faker.date_of_birth()
+        userworkhistory.date_end = faker.date_of_birth()
+    
+        db.session.add(userworkhistory)
+
+
+        
     db.session.commit()
     print("Tables seeded")
