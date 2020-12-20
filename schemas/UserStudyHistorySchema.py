@@ -17,5 +17,5 @@ class UserStudyHistorySchema(ma.SQLAlchemyAutoSchema):
     last_updated = ma.String(required=True,nullable=False, default=datetime.utcnow)
 
 
-userStudyHistorySchema = UserStudyHistorySchema()
-userStudyHistorySchemas = UserStudyHistorySchema(many=True)
+user_study_history_schema = UserStudyHistorySchema()
+user_study_history_schemas = UserStudyHistorySchema(many=True)

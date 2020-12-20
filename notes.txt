@@ -45,21 +45,32 @@ psql --host=107.20.94.65 --port=5432 --username=postgres --dbname=library_api --
 }  
 
 {
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDgzMzMzNzgsIm5iZiI6MTYwODMzMzM3OCwianRpIjoiMWNkMjE2OGUtZWNmMC00Mzg3LTg3NDMtNGEwNWVjMzZlODQ4IiwiZXhwIjoxNjA4NDE5Nzc4LCJpZGVudGl0eSI6InF1YWxpdHkiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.VHZDGvqkHHjqlZMY1mX8KH7WwOg_zCn5a7UOAxq01ho"
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDg0NDI5MjEsIm5iZiI6MTYwODQ0MjkyMSwianRpIjoiM2UwZmZhYTMtMjJmMC00ZmQxLWI3ZTQtOGU1YmY3ODI3NGYyIiwiZXhwIjoxNjA4NTI5MzIxLCJpZGVudGl0eSI6ImFsb25nIiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.q_ikIgDbFLHBCI4rfmc2K6x-kFoVu7n2pxelao0N6Pc"
 }
 
 
+  {
+    "city": "Samanthahaven",
+    "company": "nab",
+    "country": "Algeria",
+    "date_end": "1961-06-11 00:00:00",
+    "date_start": "1964-04-20 00:00:00",
+    "id": 13,
+    "job_title": "architect",
+    "last_updated": "2020-12-20 04:15:25.755329",
+    "username": "us"
+  }
+
 
 {
-    "city": "West Brian",
-    "company": "aws",
-    "country": "Anguilla",
-    "date_end": "2004-01-20 00:00:00",
-    "date_start": "1970-08-22 00:00:00",
-    "id": 6,
-    "job_title": "engineer",
-    "last_updated": "2020-12-18 23:07:18.379501",
-    "username": "quality"
+	  "username": "along",
+    "qualification_title": "carrot taster",
+	  "institution": "bugs bunny",
+		"city": "Neverland",
+    "country": "South Antartica",
+    "date_end": "1949-05-18 00:00:00",
+    "date_start": "2003-04-23 00:00:00",
+    "last_updated": "2020-12-20 04:15:18.678370"
   }
 
 

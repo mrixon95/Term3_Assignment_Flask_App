@@ -1,9 +1,8 @@
-from schemas.UserStudyHistorySchema import userStudyHistorySchemas
-from schemas.UserStudyHistorySchema import userStudyHistorySchema
 
+from schemas.UserStudyHistorySchema import user_study_history_schema
+from schemas.UserStudyHistorySchema import user_study_history_schemas
 from models.User import User
 from models.UserStudyHistory import UserStudyHistory
-from models.UserWorkHistory import UserWorkHistory
 
 from main import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -12,118 +11,121 @@ from sqlalchemy.orm import joinedload
 userstudyhistory = Blueprint('userstudyhistory', __name__, url_prefix="/userstudyhistory")
 
 @userstudyhistory.route("/", methods=["GET"])
-def userstudyhistory_all():
-    # Retrieve all workhistorys
-    userstudyhistorys = UserStudyHistory.query.all()
-    return jsonify(userStudyHistorySchemas.dump(userstudyhistorys))
+def userStudyhistory_all():
+    # Retrieve all Studyhistorys
+    user_study_histories = UserStudyHistory.query.all()
+    return jsonify(user_study_history_schemas.dump(user_study_histories))
 
 
-@userstudyhistory.route("/user/<string:user>", methods=["GET"])
-def userstudyhistory_user(user):
-    # Retrieve a particular users workhistorys
+@userstudyhistory.route("/user/<string:inputted_username>", methods=["GET"])
+def userStudyhistory_user(inputted_username):
+    # Retrieve a particular users Studyhistorys
 
-    user_object = User.query.get(user)
+    user_object = User.query.get(inputted_username)
 
     if not user_object:
         return abort(401, description="Invalid user")
 
-    user_study_histories = UserStudyHistory.query.filter_by(username=user)
+    user_study_histories_unordered = UserStudyHistory.query.filter_by(username=inputted_username)
 
-    if not user_study_histories:
-        return abort(404, description="No study histories to return")
+    if not user_study_histories_unordered:
+        return abort(404, description="No Study histories to return")
 
-    userstudyhistorys = UserStudyHistory.query.filter_by(username=user).order_by(UserStudyHistory.date_start.desc()).all()
-    return jsonify(userStudyHistorySchemas.dump(userstudyhistorys))
+    user_study_histories_ordered = user_study_histories_unordered.order_by(UserStudyHistory.date_start.desc()).all()
+    return jsonify(user_study_history_schemas.dump(user_study_histories_ordered))
 
 
-@userstudyhistory.route("/user/<string:user>", methods=["POST"])
+@userstudyhistory.route("/user/<string:inputted_username>", methods=["POST"])
 @jwt_required
-def userstudyhistory_create(user):
+def userStudyhistory_create(inputted_username):
 
-    user_study_history_fields = userStudyHistorySchema.load(request.json)
-    user_id = get_jwt_identity()
+    user_study_history_inputted_fields = user_study_history_schemas.load(request.json)
 
-    user_object = User.query.get(user_id)
+    username_of_jwt = get_jwt_identity()
 
-    if not user_object:
+    user_of_jwt = User.query.get(username_of_jwt)
+
+    if not user_of_jwt:
         return abort(404, description="User does not exist")
 
 
 
     # user_id = get_jwt_identity()
-    user_study_history_object = UserStudyHistory()
+    user_study_history_object_from_fields = UserStudyHistory()
 
-    user_study_history_object.username = user_object.username
-    user_study_history_object.qualification_title = user_study_history_fields["qualification_title"]
-    user_study_history_object.institution = user_study_history_fields["institution"]
-    user_study_history_object.city = user_study_history_fields["city"]
-    user_study_history_object.country = user_study_history_fields["country"]
-    user_study_history_object.date_start = user_study_history_fields["date_start"]
-    user_study_history_object.date_end = user_study_history_fields["date_end"]
-    user_study_history_object.last_updated = user_study_history_fields["last_updated"]
+    user_study_history_object_from_fields.username = username_of_jwt
+    user_study_history_object_from_fields.job_title = user_study_history_inputted_fields["job_title"]
+    user_study_history_object_from_fields.company = user_study_history_inputted_fields["company"]
+    user_study_history_object_from_fields.city = user_study_history_inputted_fields["city"]
+    user_study_history_object_from_fields.country = user_study_history_inputted_fields["country"]
+    user_study_history_object_from_fields.date_start = user_study_history_inputted_fields["date_start"]
+    user_study_history_object_from_fields.date_end = user_study_history_inputted_fields["date_end"]
+    user_study_history_object_from_fields.last_updated = user_study_history_inputted_fields["last_updated"]
 
-    db.session.add(user_study_history_object)
+    db.session.add(user_study_history_object_from_fields)
     
     db.session.commit()
 
-    return jsonify(userStudyHistorySchema.dump(user_study_history_object))
+    return jsonify(user_study_history_schema.dump(user_study_history_object_from_fields))
 
 
 @userstudyhistory.route("/<int:id>", methods=["GET"])
-def userstudyhistory_get(id):
-    #Return a single work history
-    studyhistory = UserStudyHistory.query.get(id)
-    return jsonify(userStudyHistorySchema.dump(studyhistory))
+def userStudyhistory_get(id):
+    #Return a single Study history
+    user_study_history_object = UserStudyHistory.query.get(id)
+    return jsonify(user_study_history_schema.dump(user_study_history_object))
 
 @userstudyhistory.route("/user/<int:id>", methods=["PUT", "PATCH"])
 @jwt_required
-def userstudyhistory_update(id):
+def userStudyhistory_update(id):
 
     jwt_username = get_jwt_identity()
 
-    userStudyHistory_fields = userStudyHistorySchema.load(request.json, partial=True)
+    user_study_history_fields = user_study_history_schema.load(request.json, partial=True)
 
     jwt_user = User.query.get(jwt_username)
 
     if not jwt_user:
         return abort(401, description="Invalid user")
 
-    userStudyHistoryquery = UserStudyHistory.query.filter_by(id=id, username=jwt_username)
+    user_study_history_object = UserStudyHistory.query.filter_by(id=id, username=jwt_username)
 
-    if userStudyHistoryquery.count() != 1:
+    if user_study_history_object.count() != 1:
         return abort(401, description="Unauthorised to update this profile")
 
-    userStudyHistoryquery.update(userStudyHistory_fields)
+    user_study_history_object.update(user_study_history_fields)
     db.session.commit()
 
-    return jsonify(userStudyHistorySchema.dump(userStudyHistoryquery[0]))
+    return jsonify(user_study_history_schema.dump(user_study_history_object[0]))
 
 
 
 @userstudyhistory.route("/<int:id>", methods=["DELETE"])
 @jwt_required
-def userstudyhistory_delete(id):
+def userStudyhistory_delete(id):
 
-    #Delete a study history
+    #Delete a Study history
 
     jwt_username = get_jwt_identity()
 
-    userStudyHistory = UserStudyHistory.query.filter_by(id=id).first()
+    user_study_history_object = UserStudyHistory.query.filter_by(id=id).first()
 
-    if userStudyHistory is None:
-        return abort(401, description=f"There does not exist a studyhistory with id {id}")
+    if user_study_history_object is None:
+        return abort(401, description=f"There does not exist a Studyhistory with id {id}")
 
 
-    if (jwt_username != userStudyHistory.username):
-        return abort(401, description=f"You are logged in as username: {jwt_username} but the study history id matches to {userStudyHistory.username} ")
+    if (jwt_username != user_study_history_object.username):
+        return abort(401, description=f"You are logged in as username: {jwt_username} but the study history id matches to {user_study_history_object.username} ")
 
-    # Check the user that wants to delete the studyhistory
-    userStudyHistory = UserStudyHistory.query.filter_by(id=id, username=jwt_username).first()
+    # Check the user that wants to delete the Studyhistory
+    user_study_history_object = UserStudyHistory.query.filter_by(id=id, username=jwt_username).first()
 
-    if not userStudyHistory:
+    if not user_study_history_object:
         return abort(401, description=f"Study history Id of {id} does not exist for this user.")
 
-    db.session.delete(userStudyHistory)
+    db.session.delete(user_study_history_object)
     db.session.commit()
 
-    return jsonify(userStudyHistorySchema.dump(userStudyHistory))
+    return jsonify(user_study_history_schema.dump(user_study_history_object))
+
+

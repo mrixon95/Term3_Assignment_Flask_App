@@ -1,8 +1,8 @@
 
-from schemas.UserWorkHistorySchema import userWorkHistorySchema
-from schemas.UserWorkHistorySchema import userWorkHistorySchemas
+from schemas.UserWorkHistorySchema import user_work_history_schema
+from schemas.UserWorkHistorySchema import user_work_history_schemas
 from models.User import User
-from models.UserWorkHistory import UserWorkHistoryTable
+from models.UserWorkHistory import UserWorkHistory
 
 from main import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -13,66 +13,66 @@ userworkhistory = Blueprint('userworkhistory', __name__, url_prefix="/userworkhi
 @userworkhistory.route("/", methods=["GET"])
 def userworkhistory_all():
     # Retrieve all workhistorys
-    userworkhistorys = UserWorkHistory.query.all()
-    return jsonify(userWorkHistorySchemas.dump(userworkhistorys))
+    user_work_histories = UserWorkHistory.query.all()
+    return jsonify(user_work_history_schemas.dump(user_work_histories))
 
 
-@userworkhistory.route("/user/<string:user>", methods=["GET"])
-def userworkhistory_user(user):
+@userworkhistory.route("/user/<string:inputted_username>", methods=["GET"])
+def userworkhistory_user(inputted_username):
     # Retrieve a particular users workhistorys
 
-    user_object = User.query.get(user)
+    user_object = User.query.get(inputted_username)
 
     if not user_object:
         return abort(401, description="Invalid user")
 
-    user_work_histories_unordered = UserWorkHistory.query.filter_by(username=user)
+    user_work_histories_unordered = UserWorkHistory.query.filter_by(username=inputted_username)
 
-    if not user_work_histories:
+    if not user_work_histories_unordered:
         return abort(404, description="No work histories to return")
 
-    user_work_histories = user_work_histories_unordered.order_by(UserWorkHistoryTable.date_start.desc()).all()
-    return jsonify(userWorkHistorySchemas.dump(userworkhistorys))
+    user_work_histories_ordered = user_work_histories_unordered.order_by(UserWorkHistory.date_start.desc()).all()
+    return jsonify(user_work_history_schemas.dump(user_work_histories_ordered))
 
 
-@userworkhistory.route("/user/<string:user>", methods=["POST"])
+@userworkhistory.route("/user/<string:inputted_username>", methods=["POST"])
 @jwt_required
-def userworkhistory_create(user):
+def userworkhistory_create(inputted_username):
 
-    user_work_history_fields = userWorkHistorySchema.load(request.json)
-    user_id = get_jwt_identity()
+    user_work_history_inputted_fields = user_work_history_schemas.load(request.json)
+    username_of_jwt = get_jwt_identity()
 
-    user_object = User.query.get(user_id)
+    user_of_jwt = User.query.get(username_of_jwt)
 
-    if not user_object:
+    if not user_of_jwt:
         return abort(404, description="User does not exist")
 
 
 
     # user_id = get_jwt_identity()
-    user_work_history_object = UserWorkHistory()
+    user_work_history_object_from_fields = UserWorkHistory()
 
-    user_work_history_object.username = user_object.username
-    user_work_history_object.job_title = user_work_history_fields["job_title"]
-    user_work_history_object.company = user_work_history_fields["company"]
-    user_work_history_object.city = user_work_history_fields["city"]
-    user_work_history_object.country = user_work_history_fields["country"]
-    user_work_history_object.date_start = user_work_history_fields["date_start"]
-    user_work_history_object.date_end = user_work_history_fields["date_end"]
-    user_work_history_object.last_updated = user_work_history_fields["last_updated"]
+    user_work_history_object_from_fields.username = username_of_jwt
+    user_work_history_object_from_fields.job_title = user_work_history_inputted_fields["job_title"]
+    user_work_history_object_from_fields.company = user_work_history_inputted_fields["company"]
+    user_work_history_object_from_fields.city = user_work_history_inputted_fields["city"]
+    user_work_history_object_from_fields.country = user_work_history_inputted_fields["country"]
+    user_work_history_object_from_fields.date_start = user_work_history_inputted_fields["date_start"]
+    user_work_history_object_from_fields.date_end = user_work_history_inputted_fields["date_end"]
+    user_work_history_object_from_fields.last_updated = user_work_history_inputted_fields["last_updated"]
 
-    db.session.add(user_work_history_object)
+    db.session.add(user_work_history_object_from_fields)
     
     db.session.commit()
 
-    return jsonify(userWorkHistorySchema.dump(user_work_history_object))
+    return jsonify(user_work_history_schema.dump(user_work_history_object_from_fields))
 
 
 @userworkhistory.route("/<int:id>", methods=["GET"])
 def userworkhistory_get(id):
     #Return a single work history
-    workhistory = UserWorkHistoryTable.query.get(id)
-    return jsonify(userWorkHistorySchema.dump(workhistory))
+    user_work_history_object = UserWorkHistory.query.get(id)
+    return jsonify(user_work_history_schema.dump(user_work_history_object))
 
 @userworkhistory.route("/user/<int:id>", methods=["PUT", "PATCH"])
 @jwt_required
@@ -80,22 +80,22 @@ def userworkhistory_update(id):
 
     jwt_username = get_jwt_identity()
 
-    userWorkHistory_fields = userWorkHistorySchema.load(request.json, partial=True)
+    user_work_history_fields = user_work_history_schema.load(request.json, partial=True)
 
     jwt_user = User.query.get(jwt_username)
 
     if not jwt_user:
         return abort(401, description="Invalid user")
 
-    userWorkHistoryquery = UserWorkHistoryTable.query.filter_by(id=id, username=jwt_username)
+    user_work_history_object = UserWorkHistory.query.filter_by(id=id, username=jwt_username)
 
-    if userWorkHistoryquery.count() != 1:
+    if user_work_history_object.count() != 1:
         return abort(401, description="Unauthorised to update this profile")
 
-    userWorkHistoryquery.update(userWorkHistory_fields)
+    user_work_history_object.update(user_work_history_fields)
     db.session.commit()
 
-    return jsonify(userWorkHistorySchema.dump(userWorkHistoryquery[0]))
+    return jsonify(user_work_history_schema.dump(user_work_history_object[0]))
 
 
 
@@ -107,24 +107,24 @@ def userworkhistory_delete(id):
 
     jwt_username = get_jwt_identity()
 
-    userWorkHistory = UserWorkHistory.query.filter_by(id=id).first()
+    user_work_history_object = UserWorkHistory.query.filter_by(id=id).first()
 
-    if userWorkHistory is None:
+    if user_work_history_object is None:
         return abort(401, description=f"There does not exist a workhistory with id {id}")
 
 
-    if (jwt_username != userWorkHistory.username):
-        return abort(401, description=f"You are logged in as username: {jwt_username} but the work history id matches to {userWorkHistory.username} ")
+    if (jwt_username != user_work_history_object.username):
+        return abort(401, description=f"You are logged in as username: {jwt_username} but the work history id matches to {user_work_history_object.username} ")
 
     # Check the user that wants to delete the workhistory
-    userWorkHistory = UserWorkHistoryTable.query.filter_by(id=id, username=jwt_username).first()
+    user_work_history_object = UserWorkHistory.query.filter_by(id=id, username=jwt_username).first()
 
-    if not userWorkHistory:
+    if not user_work_history_object:
         return abort(401, description=f"Work history Id of {id} does not exist for this user.")
 
-    db.session.delete(userWorkHistory)
+    db.session.delete(user_work_history_object)
     db.session.commit()
 
-    return jsonify(userWorkHistorySchema.dump(userWorkHistory))
+    return jsonify(user_work_history_schema.dump(user_work_history_object))
 
 

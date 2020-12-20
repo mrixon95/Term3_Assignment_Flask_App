@@ -15,5 +15,5 @@ class UserWorkHistorySchema(ma.SQLAlchemyAutoSchema):
     date_end = ma.String(required=True)
     last_updated = ma.String(required=True)
 
-userWorkHistorySchema = UserWorkHistorySchema()
-userWorkHistorySchemas = UserWorkHistorySchema(many=True)
+user_work_history_schema = UserWorkHistorySchema()
+user_work_history_schemas = UserWorkHistorySchema(many=True)
