@@ -1,5 +1,8 @@
 from main import db
 from datetime import datetime
+from models.UserStudyHistory import UserStudyHistory
+from models.UserWorkHistory import UserWorkHistory
+
 
 class User(db.Model):
     __tablename__ = "users"
@@ -14,6 +17,8 @@ class User(db.Model):
     city = db.Column(db.String(), nullable=False)
     country = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False)
+    userstudyhistorys = db.relationship("UserStudyHistory", backref="users", lazy="dynamic")
+    userworkhistorys = db.relationship("UserWorkHistory", backref="users", lazy="dynamic")
     # books = db.relationship("Book", backref="user", lazy="dynamic")
 
     def __repr__(self):

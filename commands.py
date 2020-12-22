@@ -52,6 +52,8 @@ def seed_db():
 
         db.session.add(user)
         users.append(user)
+    
+    
 
     db.session.commit()
     
@@ -61,6 +63,7 @@ def seed_db():
 
         userstudyhistory = UserStudyHistory()
         userstudyhistory.username = random.choice(users).username
+
         userstudyhistory.qualification_title = random.choice(qualifications)
         userstudyhistory.institution = random.choice(institutions)
         userstudyhistory.city = faker.city()
@@ -86,7 +89,7 @@ def seed_db():
         userworkhistory.country = faker.country()
         userworkhistory.date_start = faker.date_of_birth()
         userworkhistory.date_end = faker.date_of_birth()
-    
+
         db.session.add(userworkhistory)
 
 

@@ -45,9 +45,8 @@ psql --host=107.20.94.65 --port=5432 --username=postgres --dbname=library_api --
 }  
 
 {
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDg0NDI5MjEsIm5iZiI6MTYwODQ0MjkyMSwianRpIjoiM2UwZmZhYTMtMjJmMC00ZmQxLWI3ZTQtOGU1YmY3ODI3NGYyIiwiZXhwIjoxNjA4NTI5MzIxLCJpZGVudGl0eSI6ImFsb25nIiwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.q_ikIgDbFLHBCI4rfmc2K6x-kFoVu7n2pxelao0N6Pc"
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDg1MDYzMjIsIm5iZiI6MTYwODUwNjMyMiwianRpIjoiNTIyOTAxMjUtMDMzZC00ODViLTk4MzEtYTJmZDk3NzA3NDY0IiwiZXhwIjoxNjA4NTkyNzIyLCJpZGVudGl0eSI6Im15c2VsZiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.wQj--FIzvc2uA8s37Hm6Gxc7uBMLxwWJhQ56xNYBxTk"
 }
-
 
   {
     "city": "Samanthahaven",

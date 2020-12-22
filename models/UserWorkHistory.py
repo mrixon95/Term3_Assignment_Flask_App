@@ -15,4 +15,4 @@ class UserWorkHistory(db.Model):
     # books = db.relationship("Book", backref="user", lazy="dynamic")
 
     def __repr__(self):
-        return f"<UserWorkHistory {self.id} {self.username}>"
+        return f"<UserWorkHistory {self.id}>"

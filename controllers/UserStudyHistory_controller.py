@@ -35,11 +35,11 @@ def userStudyhistory_user(inputted_username):
     return jsonify(user_study_history_schemas.dump(user_study_histories_ordered))
 
 
-@userstudyhistory.route("/user/<string:inputted_username>", methods=["POST"])
+@userstudyhistory.route("/user/", methods=["POST"])
 @jwt_required
-def userStudyhistory_create(inputted_username):
+def userStudyhistory_create():
 
-    user_study_history_inputted_fields = user_study_history_schemas.load(request.json)
+    user_study_history_inputted_fields = user_study_history_schema.load(request.json)
 
     username_of_jwt = get_jwt_identity()
 
@@ -53,9 +53,8 @@ def userStudyhistory_create(inputted_username):
     # user_id = get_jwt_identity()
     user_study_history_object_from_fields = UserStudyHistory()
 
-    user_study_history_object_from_fields.username = username_of_jwt
-    user_study_history_object_from_fields.job_title = user_study_history_inputted_fields["job_title"]
-    user_study_history_object_from_fields.company = user_study_history_inputted_fields["company"]
+    user_study_history_object_from_fields.qualification_title = user_study_history_inputted_fields["qualification_title"]
+    user_study_history_object_from_fields.institution = user_study_history_inputted_fields["institution"]
     user_study_history_object_from_fields.city = user_study_history_inputted_fields["city"]
     user_study_history_object_from_fields.country = user_study_history_inputted_fields["country"]
     user_study_history_object_from_fields.date_start = user_study_history_inputted_fields["date_start"]
