@@ -15,7 +15,7 @@ class UserStudyHistorySchema(ma.SQLAlchemyAutoSchema):
     date_start = ma.DateTime(required=True)
     date_end = ma.DateTime(required=True)
     last_updated = ma.DateTime(required=True)
-    username = ma.Nested(user_schema)
+    user = ma.Nested(user_schema)
 
 
 user_study_history_schema = UserStudyHistorySchema()

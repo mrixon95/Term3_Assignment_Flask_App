@@ -14,7 +14,7 @@ class UserWorkHistorySchema(ma.SQLAlchemyAutoSchema):
     date_start = ma.String(required=True)
     date_end = ma.String(required=True)
     last_updated = ma.String(required=True)
-    username = ma.Nested(user_schema)
+    user = ma.Nested(user_schema)
     
 
 user_work_history_schema = UserWorkHistorySchema()

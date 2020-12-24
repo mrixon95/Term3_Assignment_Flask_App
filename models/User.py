@@ -2,6 +2,7 @@ from main import db
 from datetime import datetime
 from models.UserStudyHistory import UserStudyHistory
 from models.UserWorkHistory import UserWorkHistory
+from models.UserCertification import UserCertification
 
 
 class User(db.Model):
@@ -17,8 +18,9 @@ class User(db.Model):
     city = db.Column(db.String(), nullable=False)
     country = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False)
-    userstudyhistorys = db.relationship("UserStudyHistory", backref="users", lazy="dynamic")
-    userworkhistorys = db.relationship("UserWorkHistory", backref="users", lazy="dynamic")
+    userstudyhistorys = db.relationship("UserStudyHistory", backref="user", lazy="dynamic")
+    userworkhistorys = db.relationship("UserWorkHistory", backref="user", lazy="dynamic")
+    usercertifications = db.relationship("UserCertification", backref="user", lazy="dynamic")
     # books = db.relationship("Book", backref="user", lazy="dynamic")
 
     def __repr__(self):

@@ -24,6 +24,7 @@ def seed_db():
     from models.User import User
     from models.UserStudyHistory import UserStudyHistory
     from models.UserWorkHistory import UserWorkHistory
+    from models.UserCertification import UserCertification
     from main import bcrypt
     from faker import Faker
     import random
@@ -56,6 +57,8 @@ def seed_db():
     
 
     db.session.commit()
+
+    userstudyhistory_list = []
     
     qualifications = ['bachelor', 'master', 'honours']
     institutions = ['rmit', 'latrobe', 'monash']
@@ -72,6 +75,7 @@ def seed_db():
         userstudyhistory.date_end = faker.date_of_birth()
 
         db.session.add(userstudyhistory)
+        userstudyhistory_list.append(userstudyhistory)
 
 
     db.session.commit()
@@ -83,6 +87,7 @@ def seed_db():
         userworkhistory = UserWorkHistory()
 
         userworkhistory.username = random.choice(users).username
+
         userworkhistory.job_title = random.choice(job_title)
         userworkhistory.company = random.choice(company)
         userworkhistory.city = faker.city()
@@ -92,6 +97,23 @@ def seed_db():
 
         db.session.add(userworkhistory)
 
+
+    cert_names = ['aws cloud practitioner', 'microsoft azure administrator', 'microsoft excel']
+    descriptions = ['Expert', 'Advanced', 'Beginner']
+    issuers = ['Microsoft', 'AWS', 'Google']
+
+    for i in range(20):
+
+        usercertification = UserCertification()
+
+        usercertification.username = random.choice(users).username
+
+        usercertification.cert_name = random.choice(cert_names)
+        usercertification.description = random.choice(descriptions)
+        usercertification.issuer = random.choice(issuers)
+        usercertification.date_obtained = faker.date_of_birth()
+
+        db.session.add(usercertification)
 
         
     db.session.commit()
