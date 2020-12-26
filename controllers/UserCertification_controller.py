@@ -40,9 +40,9 @@ def usercertificationhistory_user(inputted_username):
 
 @usercertification.route("/", methods=["POST"])
 @jwt_required
-def usercertificationhistory_create(inputted_username):
+def usercertificationhistory_create():
 
-    user_certification_inputted_fields = user_certification_schemas.load(request.json)
+    user_certification_inputted_fields = user_certification_schema.load(request.json)
     username_of_jwt = get_jwt_identity()
 
     user_of_jwt = User.query.get(username_of_jwt)

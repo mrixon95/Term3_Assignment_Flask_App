@@ -25,6 +25,8 @@ def seed_db():
     from models.UserStudyHistory import UserStudyHistory
     from models.UserWorkHistory import UserWorkHistory
     from models.UserCertification import UserCertification
+    from models.UserResumeProject import UserResumeProject
+    from models.UserMeeting import UserMeeting
     from main import bcrypt
     from faker import Faker
     import random
@@ -115,6 +117,39 @@ def seed_db():
 
         db.session.add(usercertification)
 
-        
+
+    resume_paths_list = ['file1', 'file2', 'file3']
+    github_account_list = ['https://github.com/mrixon95', 'https://github.com/HarryTranAU/', 'https://github.com/ashley190']
+
+
+    for i in range(20):
+
+        userresumeproject = UserResumeProject()
+
+        userresumeproject.username = random.choice(users).username
+
+        userresumeproject.resume_path = random.choice(resume_paths_list)
+        userresumeproject.github_account = random.choice(github_account_list)
+
+        db.session.add(userresumeproject)
+
+
+    qualifications = ['bachelor', 'master', 'honours']
+    institutions = ['rmit', 'latrobe', 'monash']
+
+
+    for i in range(20):
+
+        usermeeting = UserMeeting()
+        usermeeting.username = random.choice(users).username
+
+        usermeeting.time_start = faker.date_of_birth()
+        usermeeting.time_end = faker.date_of_birth()
+        usermeeting.location = faker.city()
+        usermeeting.subject = faker.word()
+        usermeeting.description = faker.word()
+        usermeeting.last_updated = faker.date_of_birth()
+
+        db.session.add(usermeeting)
+
     db.session.commit()
-    print("Tables seeded")

@@ -3,6 +3,8 @@ from datetime import datetime
 from models.UserStudyHistory import UserStudyHistory
 from models.UserWorkHistory import UserWorkHistory
 from models.UserCertification import UserCertification
+from models.UserResumeProject import UserResumeProject
+from models.UserMeeting import UserMeeting
 
 
 class User(db.Model):
@@ -21,6 +23,8 @@ class User(db.Model):
     userstudyhistorys = db.relationship("UserStudyHistory", backref="user", lazy="dynamic")
     userworkhistorys = db.relationship("UserWorkHistory", backref="user", lazy="dynamic")
     usercertifications = db.relationship("UserCertification", backref="user", lazy="dynamic")
+    userresumeprojects = db.relationship("UserResumeProject", backref="user", lazy="dynamic")
+    usermeetings = db.relationship("UserMeeting", backref="user", lazy="dynamic")
     # books = db.relationship("Book", backref="user", lazy="dynamic")
 
     def __repr__(self):

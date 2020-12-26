@@ -16,7 +16,7 @@
 ```
 psql --host=107.20.94.65 --port=5432 --username=postgres --dbname=library_api --password
 ```
-
+$2b$12$fBcmhSsDyPmxOHREU6r0V.2yH8emgv4rxGZy8vgBwpGFUGJbuQ3HK
 
 {
     "city": "East Eric",
@@ -45,7 +45,7 @@ psql --host=107.20.94.65 --port=5432 --username=postgres --dbname=library_api --
 }  
 
 {
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDg1MDYzMjIsIm5iZiI6MTYwODUwNjMyMiwianRpIjoiNTIyOTAxMjUtMDMzZC00ODViLTk4MzEtYTJmZDk3NzA3NDY0IiwiZXhwIjoxNjA4NTkyNzIyLCJpZGVudGl0eSI6Im15c2VsZiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.wQj--FIzvc2uA8s37Hm6Gxc7uBMLxwWJhQ56xNYBxTk"
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDg2MTg1MDgsIm5iZiI6MTYwODYxODUwOCwianRpIjoiMzRkZmJjNzEtMmQyZC00NDQwLTk5MWQtMWZiOTJmNzRiY2IwIiwiZXhwIjoxNjA4NzA0OTA4LCJpZGVudGl0eSI6InRyeSIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.YLa2JsUUmmyIZJtDhRG7kwuJvqTdqcdBkVDVB4BN3rg"
 }
 
   {

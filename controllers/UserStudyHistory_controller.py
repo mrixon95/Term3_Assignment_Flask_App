@@ -35,7 +35,7 @@ def userStudyhistory_user(inputted_username):
     return jsonify(user_study_history_schemas.dump(user_study_histories_ordered))
 
 
-@userstudyhistory.route("/user/", methods=["POST"])
+@userstudyhistory.route("/", methods=["POST"])
 @jwt_required
 def userStudyhistory_create():
 
@@ -60,6 +60,7 @@ def userStudyhistory_create():
     user_study_history_object_from_fields.date_start = user_study_history_inputted_fields["date_start"]
     user_study_history_object_from_fields.date_end = user_study_history_inputted_fields["date_end"]
     user_study_history_object_from_fields.last_updated = user_study_history_inputted_fields["last_updated"]
+    user_study_history_object_from_fields.username = username_of_jwt
 
     db.session.add(user_study_history_object_from_fields)
     
@@ -74,7 +75,7 @@ def userStudyhistory_get(id):
     user_study_history_object = UserStudyHistory.query.get(id)
     return jsonify(user_study_history_schema.dump(user_study_history_object))
 
-@userstudyhistory.route("/user/<int:id>", methods=["PUT", "PATCH"])
+@userstudyhistory.route("/<int:id>", methods=["PUT", "PATCH"])
 @jwt_required
 def userStudyhistory_update(id):
 
@@ -123,8 +124,12 @@ def userStudyhistory_delete(id):
         return abort(401, description=f"Study history Id of {id} does not exist for this user.")
 
     db.session.delete(user_study_history_object)
+
+    json_object_to_return = jsonify(user_study_history_schema.dump(user_study_history_object))
+
     db.session.commit()
 
-    return jsonify(user_study_history_schema.dump(user_study_history_object))
+    return json_object_to_return
+
 
 

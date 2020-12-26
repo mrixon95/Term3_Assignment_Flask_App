@@ -35,11 +35,11 @@ def userworkhistory_user(inputted_username):
     return jsonify(user_work_history_schemas.dump(user_work_histories_ordered))
 
 
-@userworkhistory.route("/user/<string:inputted_username>", methods=["POST"])
+@userworkhistory.route("/", methods=["POST"])
 @jwt_required
-def userworkhistory_create(inputted_username):
+def userworkhistory_create():
 
-    user_work_history_inputted_fields = user_work_history_schemas.load(request.json)
+    user_work_history_inputted_fields = user_work_history_schema.load(request.json)
     username_of_jwt = get_jwt_identity()
 
     user_of_jwt = User.query.get(username_of_jwt)
@@ -74,7 +74,7 @@ def userworkhistory_get(id):
     user_work_history_object = UserWorkHistory.query.get(id)
     return jsonify(user_work_history_schema.dump(user_work_history_object))
 
-@userworkhistory.route("/user/<int:id>", methods=["PUT", "PATCH"])
+@userworkhistory.route("/<int:id>", methods=["PUT", "PATCH"])
 @jwt_required
 def userworkhistory_update(id):
 
@@ -123,8 +123,11 @@ def userworkhistory_delete(id):
         return abort(401, description=f"Work history Id of {id} does not exist for this user.")
 
     db.session.delete(user_work_history_object)
+
+    json_object_to_return = jsonify(user_work_history_schema.dump(user_work_history_object))
+
     db.session.commit()
 
-    return jsonify(user_work_history_schema.dump(user_work_history_object))
+    return json_object_to_return
 
 
