@@ -5,7 +5,8 @@ from models.UserWorkHistory import UserWorkHistory
 from models.UserCertification import UserCertification
 from models.UserResumeProject import UserResumeProject
 from models.UserMeeting import UserMeeting
-
+# from models.joined_tables import message
+from models.Message import Message
 
 class User(db.Model):
     __tablename__ = "users"
@@ -24,7 +25,21 @@ class User(db.Model):
     userworkhistorys = db.relationship("UserWorkHistory", backref="user", lazy="dynamic")
     usercertifications = db.relationship("UserCertification", backref="user", lazy="dynamic")
     userresumeprojects = db.relationship("UserResumeProject", backref="user", lazy="dynamic")
-    usermeetings = db.relationship("UserMeeting", backref="user", lazy="dynamic")
+    # usermeetings = db.relationship("UserMeeting", backref="user", lazy="dynamic")
+    # messages = db.relationship("Message", backref="username_of_sender", lazy="dynamic")
+
+    messages1 = db.relationship(
+        "Message",
+        foreign_keys="Message.username_of_sender",
+        backref ="sender"
+    )
+
+    messages2 = db.relationship(
+        "Message",
+        foreign_keys="Message.username_of_receiver",
+        backref ="receiver"
+    )
+
     # books = db.relationship("Book", backref="user", lazy="dynamic")
 
     def __repr__(self):

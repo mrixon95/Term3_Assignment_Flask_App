@@ -19,4 +19,4 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
 
 
 user_schema = UserSchema()
-users_schema = UserSchema(many=True)
+user_schemas = UserSchema(many=True)

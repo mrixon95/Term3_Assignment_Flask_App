@@ -27,16 +27,17 @@ def seed_db():
     from models.UserCertification import UserCertification
     from models.UserResumeProject import UserResumeProject
     from models.UserMeeting import UserMeeting
+    from models.Message import Message
     from main import bcrypt
     from faker import Faker
-    import random
+    from random import randrange, choice
 
     from datetime import datetime
 
     now = datetime.now()
 
     faker = Faker()
-    users = []
+    user_list = []
 
     # Create fake users
 
@@ -54,7 +55,7 @@ def seed_db():
         user.dob = faker.date_of_birth()
 
         db.session.add(user)
-        users.append(user)
+        user_list.append(user)
     
     
 
@@ -67,10 +68,10 @@ def seed_db():
     for i in range(20):
 
         userstudyhistory = UserStudyHistory()
-        userstudyhistory.username = random.choice(users).username
+        userstudyhistory.username = choice(user_list).username
 
-        userstudyhistory.qualification_title = random.choice(qualifications)
-        userstudyhistory.institution = random.choice(institutions)
+        userstudyhistory.qualification_title = choice(qualifications)
+        userstudyhistory.institution = choice(institutions)
         userstudyhistory.city = faker.city()
         userstudyhistory.country = faker.country()
         userstudyhistory.date_start = faker.date_of_birth()
@@ -88,10 +89,10 @@ def seed_db():
 
         userworkhistory = UserWorkHistory()
 
-        userworkhistory.username = random.choice(users).username
+        userworkhistory.username = choice(user_list).username
 
-        userworkhistory.job_title = random.choice(job_title)
-        userworkhistory.company = random.choice(company)
+        userworkhistory.job_title = choice(job_title)
+        userworkhistory.company = choice(company)
         userworkhistory.city = faker.city()
         userworkhistory.country = faker.country()
         userworkhistory.date_start = faker.date_of_birth()
@@ -108,11 +109,11 @@ def seed_db():
 
         usercertification = UserCertification()
 
-        usercertification.username = random.choice(users).username
+        usercertification.username = choice(user_list).username
 
-        usercertification.cert_name = random.choice(cert_names)
-        usercertification.description = random.choice(descriptions)
-        usercertification.issuer = random.choice(issuers)
+        usercertification.cert_name = choice(cert_names)
+        usercertification.description = choice(descriptions)
+        usercertification.issuer = choice(issuers)
         usercertification.date_obtained = faker.date_of_birth()
 
         db.session.add(usercertification)
@@ -126,10 +127,10 @@ def seed_db():
 
         userresumeproject = UserResumeProject()
 
-        userresumeproject.username = random.choice(users).username
+        userresumeproject.username = choice(user_list).username
 
-        userresumeproject.resume_path = random.choice(resume_paths_list)
-        userresumeproject.github_account = random.choice(github_account_list)
+        userresumeproject.resume_path = choice(resume_paths_list)
+        userresumeproject.github_account = choice(github_account_list)
 
         db.session.add(userresumeproject)
 
@@ -141,7 +142,7 @@ def seed_db():
     for i in range(20):
 
         usermeeting = UserMeeting()
-        usermeeting.username = random.choice(users).username
+        usermeeting.username = choice(user_list).username
 
         usermeeting.time_start = faker.date_of_birth()
         usermeeting.time_end = faker.date_of_birth()
@@ -151,5 +152,19 @@ def seed_db():
         usermeeting.last_updated = faker.date_of_birth()
 
         db.session.add(usermeeting)
+
+    db.session.commit()
+
+    random_index = randrange(5)
+
+    for i in range(5):
+
+        message = Message()
+        message.username_of_sender = user_list[random_index].username
+        message.username_of_receiver = user_list[(random_index + 1) % 5].username
+        message.content = faker.text()
+        random_index += 1
+
+        db.session.add(message)
 
     db.session.commit()
