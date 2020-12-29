@@ -1,11 +1,11 @@
 from main import ma
-from models.UserWorkHistory import UserWorkHistory
+from models.WorkHistory import WorkHistory
 from schemas.UserSchema import user_schema
 from marshmallow.validate import Length
 
-class UserWorkHistorySchema(ma.SQLAlchemyAutoSchema):
+class WorkHistorySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = UserWorkHistory
+        model = WorkHistory
 
     job_title = ma.String(required=True)
     company = ma.String(required=True)
@@ -17,5 +17,5 @@ class UserWorkHistorySchema(ma.SQLAlchemyAutoSchema):
     user = ma.Nested(user_schema)
     
 
-user_work_history_schema = UserWorkHistorySchema()
-user_work_history_schemas = UserWorkHistorySchema(many=True)
+work_history_schema = WorkHistorySchema()
+work_history_schemas = WorkHistorySchema(many=True)

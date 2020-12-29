@@ -22,13 +22,14 @@ def drop_db():
 def seed_db():
 
     from models.User import User
-    from models.UserStudyHistory import UserStudyHistory
-    from models.UserWorkHistory import UserWorkHistory
-    from models.UserCertification import UserCertification
-    from models.UserResumeProject import UserResumeProject
-    from models.UserMeeting import UserMeeting
+    from models.StudyHistory import StudyHistory
+    from models.WorkHistory import WorkHistory
+    from models.Certification import Certification
+    from models.ResumeProject import ResumeProject
+    from models.Meeting import Meeting
     from models.Message import Message
     from models.Connection import Connection
+    from models.Post import Post
     from main import bcrypt
     from faker import Faker
     from random import randrange, choice
@@ -62,24 +63,24 @@ def seed_db():
 
     db.session.commit()
 
-    userstudyhistory_list = []
+    studyhistory_list = []
     
     qualifications = ['bachelor', 'master', 'honours']
     institutions = ['rmit', 'latrobe', 'monash']
     for i in range(20):
 
-        userstudyhistory = UserStudyHistory()
-        userstudyhistory.username = choice(user_list).username
+        studyhistory = StudyHistory()
+        studyhistory.username = choice(user_list).username
 
-        userstudyhistory.qualification_title = choice(qualifications)
-        userstudyhistory.institution = choice(institutions)
-        userstudyhistory.city = faker.city()
-        userstudyhistory.country = faker.country()
-        userstudyhistory.date_start = faker.date_of_birth()
-        userstudyhistory.date_end = faker.date_of_birth()
+        studyhistory.qualification_title = choice(qualifications)
+        studyhistory.institution = choice(institutions)
+        studyhistory.city = faker.city()
+        studyhistory.country = faker.country()
+        studyhistory.date_start = faker.date_of_birth()
+        studyhistory.date_end = faker.date_of_birth()
 
-        db.session.add(userstudyhistory)
-        userstudyhistory_list.append(userstudyhistory)
+        db.session.add(studyhistory)
+        studyhistory_list.append(studyhistory)
 
 
     db.session.commit()
@@ -88,18 +89,18 @@ def seed_db():
     job_title = ['engineer', 'developer', 'architect']
     for i in range(20):
 
-        userworkhistory = UserWorkHistory()
+        workhistory = WorkHistory()
 
-        userworkhistory.username = choice(user_list).username
+        workhistory.username = choice(user_list).username
 
-        userworkhistory.job_title = choice(job_title)
-        userworkhistory.company = choice(company)
-        userworkhistory.city = faker.city()
-        userworkhistory.country = faker.country()
-        userworkhistory.date_start = faker.date_of_birth()
-        userworkhistory.date_end = faker.date_of_birth()
+        workhistory.job_title = choice(job_title)
+        workhistory.company = choice(company)
+        workhistory.city = faker.city()
+        workhistory.country = faker.country()
+        workhistory.date_start = faker.date_of_birth()
+        workhistory.date_end = faker.date_of_birth()
 
-        db.session.add(userworkhistory)
+        db.session.add(workhistory)
 
 
     cert_names = ['aws cloud practitioner', 'microsoft azure administrator', 'microsoft excel']
@@ -108,16 +109,16 @@ def seed_db():
 
     for i in range(20):
 
-        usercertification = UserCertification()
+        certification = Certification()
 
-        usercertification.username = choice(user_list).username
+        certification.username = choice(user_list).username
 
-        usercertification.cert_name = choice(cert_names)
-        usercertification.description = choice(descriptions)
-        usercertification.issuer = choice(issuers)
-        usercertification.date_obtained = faker.date_of_birth()
+        certification.cert_name = choice(cert_names)
+        certification.description = choice(descriptions)
+        certification.issuer = choice(issuers)
+        certification.date_obtained = faker.date_of_birth()
 
-        db.session.add(usercertification)
+        db.session.add(certification)
 
 
     resume_paths_list = ['file1', 'file2', 'file3']
@@ -126,14 +127,14 @@ def seed_db():
 
     for i in range(20):
 
-        userresumeproject = UserResumeProject()
+        resumeproject = ResumeProject()
 
-        userresumeproject.username = choice(user_list).username
+        resumeproject.username = choice(user_list).username
 
-        userresumeproject.resume_path = choice(resume_paths_list)
-        userresumeproject.github_account = choice(github_account_list)
+        resumeproject.resume_path = choice(resume_paths_list)
+        resumeproject.github_account = choice(github_account_list)
 
-        db.session.add(userresumeproject)
+        db.session.add(resumeproject)
 
 
     qualifications = ['bachelor', 'master', 'honours']
@@ -142,17 +143,17 @@ def seed_db():
 
     for i in range(20):
 
-        usermeeting = UserMeeting()
-        usermeeting.username = choice(user_list).username
+        meeting = Meeting()
+        meeting.username = choice(user_list).username
 
-        usermeeting.time_start = faker.date_of_birth()
-        usermeeting.time_end = faker.date_of_birth()
-        usermeeting.location = faker.city()
-        usermeeting.subject = faker.word()
-        usermeeting.description = faker.word()
-        usermeeting.last_updated = faker.date_of_birth()
+        meeting.time_start = faker.date_of_birth()
+        meeting.time_end = faker.date_of_birth()
+        meeting.location = faker.city()
+        meeting.subject = faker.word()
+        meeting.description = faker.word()
+        meeting.last_updated = faker.date_of_birth()
 
-        db.session.add(usermeeting)
+        db.session.add(meeting)
 
     db.session.commit()
 
@@ -177,6 +178,16 @@ def seed_db():
         connection.status = "confirmed"
 
         db.session.add(connection)
+
+    for i in range(5):
+
+        post = Post()
+        post.username = user_list[i % 5].username
+        post.content = faker.text()
+        post.likes = i
+        post.last_updated = faker.date_of_birth()
+
+        db.session.add(post)
 
 
     db.session.commit()

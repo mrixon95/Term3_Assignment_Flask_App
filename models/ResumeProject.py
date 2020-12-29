@@ -1,8 +1,8 @@
 from main import db
 from datetime import datetime
 
-class UserResumeProject(db.Model):
-    __tablename__ = "userresumeprojects"
+class ResumeProject(db.Model):
+    __tablename__ = "resumeprojects"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(), db.ForeignKey("users.username"), nullable=False)
     resume_path = db.Column(db.String(), nullable=False)
@@ -11,4 +11,4 @@ class UserResumeProject(db.Model):
     # books = db.relationship("Book", backref="user", lazy="dynamic")
 
     def __repr__(self):
-        return f"<UserResumeProject {self.id}>"
+        return f"<ResumeProject {self.id}>"

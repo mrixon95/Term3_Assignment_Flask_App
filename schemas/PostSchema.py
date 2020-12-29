@@ -8,12 +8,10 @@ class PostSchema(ma.SQLAlchemyAutoSchema):
         model = Post
     
     username = ma.String(required=True, validate=Length(min=4))
-    cert_name = ma.String(required=True)
-    description = ma.String(required=True)
-    issuer = ma.String(required=True)
-    date_obtained = ma.String(required=True)
-    last_updated = ma.String(required=True,nullable=False, default=datetime.utcnow)
+    content = ma.String(required=True)
+    likes = ma.Integer(required=True)
+    last_updated = ma.DateTime(required=True,nullable=False, default=datetime.utcnow)
 
 
-PostSchema = PostSchema()
-PostSchemas = PostSchema(many=True)
+post_schema = PostSchema()
+post_schemas = PostSchema(many=True)

@@ -1,12 +1,12 @@
 from main import ma
-from models.UserStudyHistory import UserStudyHistory
+from models.StudyHistory import StudyHistory
 from schemas.UserSchema import user_schema
 from marshmallow.validate import Length
 from datetime import datetime
 
-class UserStudyHistorySchema(ma.SQLAlchemyAutoSchema):
+class StudyHistorySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = UserStudyHistory
+        model = StudyHistory
     
     qualification_title = ma.String(required=True)
     institution = ma.String(required=True)
@@ -18,5 +18,5 @@ class UserStudyHistorySchema(ma.SQLAlchemyAutoSchema):
     user = ma.Nested(user_schema)
 
 
-user_study_history_schema = UserStudyHistorySchema()
-user_study_history_schemas = UserStudyHistorySchema(many=True)
+study_history_schema = StudyHistorySchema()
+study_history_schemas = StudyHistorySchema(many=True)

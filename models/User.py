@@ -1,13 +1,14 @@
 from main import db
 from datetime import datetime
-from models.UserStudyHistory import UserStudyHistory
-from models.UserWorkHistory import UserWorkHistory
-from models.UserCertification import UserCertification
-from models.UserResumeProject import UserResumeProject
-from models.UserMeeting import UserMeeting
+from models.StudyHistory import StudyHistory
+from models.WorkHistory import WorkHistory
+from models.Certification import Certification
+from models.ResumeProject import ResumeProject
+from models.Meeting import Meeting
 # from models.joined_tables import message
 from models.Message import Message
 from models.Connection import Connection
+from models.Post import Post
 
 class User(db.Model):
     __tablename__ = "users"
@@ -22,10 +23,11 @@ class User(db.Model):
     city = db.Column(db.String(), nullable=False)
     country = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False)
-    userstudyhistorys = db.relationship("UserStudyHistory", backref="user", lazy="dynamic")
-    userworkhistorys = db.relationship("UserWorkHistory", backref="user", lazy="dynamic")
-    usercertifications = db.relationship("UserCertification", backref="user", lazy="dynamic")
-    userresumeprojects = db.relationship("UserResumeProject", backref="user", lazy="dynamic")
+    studyhistorys = db.relationship("StudyHistory", backref="user", lazy="dynamic")
+    workhistorys = db.relationship("WorkHistory", backref="user", lazy="dynamic")
+    certifications = db.relationship("Certification", backref="user", lazy="dynamic")
+    resumeprojects = db.relationship("ResumeProject", backref="user", lazy="dynamic")
+    posts = db.relationship("Post", backref="user", lazy="dynamic")
     # usermeetings = db.relationship("UserMeeting", backref="user", lazy="dynamic")
     # messages = db.relationship("Message", backref="username_of_sender", lazy="dynamic")
 

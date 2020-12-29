@@ -1,12 +1,12 @@
 from main import ma
-from models.UserMeeting import UserMeeting
+from models.Meeting import Meeting
 from schemas.UserSchema import user_schema
 from marshmallow.validate import Length
 from datetime import datetime
 
-class UserMeetingSchema(ma.SQLAlchemyAutoSchema):
+class MeetingSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = UserMeeting
+        model = Meeting
     
     time_start = ma.String(required=True)
     time_end = ma.String(required=True)
@@ -17,5 +17,5 @@ class UserMeetingSchema(ma.SQLAlchemyAutoSchema):
     user = ma.Nested(user_schema)
 
 
-user_meeting_schema = UserMeetingSchema()
-user_meeting_schemas = UserMeetingSchema(many=True)
+meeting_schema = MeetingSchema()
+meeting_schemas = MeetingSchema(many=True)

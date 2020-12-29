@@ -1,12 +1,12 @@
 from main import ma
-from models.UserCertification import UserCertification
+from models.Certification import Certification
 from schemas.UserSchema import user_schema
 from marshmallow.validate import Length
 from datetime import datetime
 
-class UserCertificationSchema(ma.SQLAlchemyAutoSchema):
+class CertificationSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = UserCertification
+        model = Certification
     
     cert_name = ma.String(required=True)
     description = ma.String(required=True)
@@ -16,5 +16,5 @@ class UserCertificationSchema(ma.SQLAlchemyAutoSchema):
     user = ma.Nested(user_schema)
 
 
-user_certification_schema = UserCertificationSchema()
-user_certification_schemas = UserCertificationSchema(many=True)
+certification_schema = CertificationSchema()
+certification_schemas = CertificationSchema(many=True)

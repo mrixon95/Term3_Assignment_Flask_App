@@ -1,8 +1,8 @@
 from main import db
 from datetime import datetime
 
-class UserWorkHistory(db.Model):
-    __tablename__ = "userworkhistorys"
+class WorkHistory(db.Model):
+    __tablename__ = "Workhistorys"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(), db.ForeignKey("users.username"), nullable=False)
     job_title = db.Column(db.String(), nullable=False)
@@ -15,4 +15,4 @@ class UserWorkHistory(db.Model):
     # books = db.relationship("Book", backref="user", lazy="dynamic")
 
     def __repr__(self):
-        return f"<UserWorkHistory {self.id}>"
+        return f"<WorkHistory {self.id}>"

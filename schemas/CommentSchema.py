@@ -1,5 +1,5 @@
 from main import ma
-from models.Comment import Connection
+from models.Comment import Comment
 from schemas.ConnectionSchema import ConnectionSchema
 from marshmallow.validate import Length
 

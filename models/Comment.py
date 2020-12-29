@@ -12,4 +12,4 @@ class Comment(db.Model):
     # books = db.relationship("Book", backref="user", lazy="dynamic")
 
     def __repr__(self):
-        return f"<JobSalary {self.id}>"
+        return f"<Comment {self.id}>"
