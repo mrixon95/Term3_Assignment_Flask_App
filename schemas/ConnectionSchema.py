@@ -1,16 +1,19 @@
 from main import ma
 from models.Connection import Connection
-from schemas.ConnectionSchema import ConnectionSchema
-from marshmallow.validate import Length
+from schemas.UserSchema import user_schema
+from marshmallow.validate import Length, OneOf
+from datetime import datetime
 
 class ConnectionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Connection
 
-    user_id_1 = ma.String(required=True, validate=Length(min=1))
-    user_id_2 = ma.String(required=True, validate=Length(min=1))
-    last_updated = ma.String(required=True, validate=Length(min=4))
-    status = ma.String(required=True)
+    requester = ma.Nested(user_schema)
+    confirmer = ma.Nested(user_schema)
+    last_updated = ma.DateTime(default=datetime.utcnow)
+    user_1_approved = ma.Boolean(default=True)
+    user_2_approved = ma.Boolean(default=False)
+    status = ma.String(default='pending', validate=[OneOf(["pending", "confirmed"])])
 
 connection_schema = ConnectionSchema()
-connections_schema = ConnectionSchema(many=True)
+connection_schemas = ConnectionSchema(many=True)

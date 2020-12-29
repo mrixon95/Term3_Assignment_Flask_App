@@ -6,6 +6,9 @@ from sqlalchemy.orm import relationship
 
 class Message(db.Model):
     __tablename__ = "Message"
+    __table_args__ = (
+        db.CheckConstraint('username_of_sender != username_of_receiver'),
+    )
     id = db.Column(db.Integer, primary_key=True)
     username_of_sender = db.Column(
         db.String(), db.ForeignKey('users.username'))

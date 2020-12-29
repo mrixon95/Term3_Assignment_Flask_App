@@ -7,6 +7,7 @@ from models.UserResumeProject import UserResumeProject
 from models.UserMeeting import UserMeeting
 # from models.joined_tables import message
 from models.Message import Message
+from models.Connection import Connection
 
 class User(db.Model):
     __tablename__ = "users"
@@ -38,6 +39,18 @@ class User(db.Model):
         "Message",
         foreign_keys="Message.username_of_receiver",
         backref ="receiver"
+    )
+
+    connection1 = db.relationship(
+        "Connection",
+        foreign_keys="Connection.username_of_requester",
+        backref ="requester"
+    )
+
+    connection2 = db.relationship(
+        "Connection",
+        foreign_keys="Connection.username_of_confirmer",
+        backref ="confirmer"
     )
 
     # books = db.relationship("Book", backref="user", lazy="dynamic")

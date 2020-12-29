@@ -5,6 +5,7 @@ from controllers.UserResumeProject_controller import userresumeproject
 from controllers.UserMeeting_controller import usermeeting
 from controllers.Message_controller import message
 from controllers.User_controller import user
+from controllers.Connection_controller import connection
 
 registerable_controllers = [
     user,
@@ -13,5 +14,6 @@ registerable_controllers = [
     usercertification,
     userresumeproject,
     usermeeting,
-    message
+    message,
+    connection
 ]

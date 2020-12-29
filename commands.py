@@ -28,6 +28,7 @@ def seed_db():
     from models.UserResumeProject import UserResumeProject
     from models.UserMeeting import UserMeeting
     from models.Message import Message
+    from models.Connection import Connection
     from main import bcrypt
     from faker import Faker
     from random import randrange, choice
@@ -155,16 +156,27 @@ def seed_db():
 
     db.session.commit()
 
-    random_index = randrange(5)
 
     for i in range(5):
 
         message = Message()
-        message.username_of_sender = user_list[random_index].username
-        message.username_of_receiver = user_list[(random_index + 1) % 5].username
+        message.username_of_sender = user_list[i].username
+        message.username_of_receiver = user_list[(i + 1) % 5].username
         message.content = faker.text()
-        random_index += 1
 
         db.session.add(message)
+
+    
+    for i in range(5):
+
+        connection = Connection()
+        connection.username_of_requester = user_list[i % 5].username
+        connection.username_of_confirmer = user_list[(i + 3) % 5].username
+        connection.user_1_approved = True
+        connection.user_2_approved = True
+        connection.status = "confirmed"
+
+        db.session.add(connection)
+
 
     db.session.commit()

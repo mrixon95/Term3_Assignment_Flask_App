@@ -17,25 +17,21 @@ message = Blueprint('message', __name__, url_prefix="/message")
 def get_all_messages():
     # Retrieve all workhistorys
     messages = Message.query.all()
-    for message in messages:
-        print(message.sender)
-        print(message.username_of_receiver)
     return jsonify(message_schemas.dump(messages))
 
 
-@message.route("/", methods=["GET"])
+@message.route("/singleuser", methods=["GET"])
 @jwt_required
 def get_personal_messages():
 
     username_of_jwt = get_jwt_identity()
-    print(username_of_jwt)
+
     user_of_jwt = User.query.get(username_of_jwt)
-    print(user_of_jwt)
 
     if not user_of_jwt:
         return abort(404, description="User does not exist")
 
-    messages = Message.query.filter_by(username_from=username_of_jwt)
+    messages = Message.query.filter((Message.username_of_sender == username_of_jwt) | (Message.username_of_receiver == username_of_jwt) ).all()
 
     return jsonify(message_schemas.dump(messages))
 
@@ -46,16 +42,20 @@ def message_create():
     # Retrieve a particular users workhistorys
 
     username_of_jwt = get_jwt_identity()
-    user_object = User.query.get(username_of_jwt)
+    user_sender_object = User.query.get(username_of_jwt)
+    user_receiver_object = User.query.get(request.json["username_of_receiver"])
 
-    if not user_object:
-        return abort(401, description="Invalid user")
+    if not (user_sender_object or user_receiver_object):
+        return abort(401, description="A user is invalid")
+
+    if not request.json["content"]:
+        return abort(401, description="Must have non-empty content")
 
      # user_id = get_jwt_identity()
     message_object_from_fields = Message()
 
-    message_object_from_fields.username_from = username_of_jwt
-    message_object_from_fields.username_to = request.json["username_to"]
+    message_object_from_fields.username_of_sender = username_of_jwt
+    message_object_from_fields.username_of_receiver = request.json["username_of_receiver"]
     message_object_from_fields.content = request.json["content"]
 
     db.session.add(message_object_from_fields)
@@ -64,35 +64,64 @@ def message_create():
     return jsonify(message_schema.dump(message_object_from_fields))
 
 
-# @message.route("/", methods=["POST"])
-# @jwt_required
-# def message_create():
+@message.route("/betweentwousers", methods=["GET"])
+@jwt_required
+def see_discussion_between_two_users():
 
-#     user_meeting_inputted_fields = user_meeting_schema.load(request.json)
-#     username_of_jwt = get_jwt_identity()
+    username_of_jwt = get_jwt_identity()
+    other_user_username = request.json["other_user"]
 
-#     user_of_jwt = User.query.get(username_of_jwt)
+    user_of_jwt_object = User.query.get(username_of_jwt)
+    other_user_object = User.query.get(other_user_username)
 
-#     if not user_of_jwt:
-#         return abort(404, description="User does not exist")
+    if not (user_of_jwt_object or other_user_object):
+        return abort(401, description="One or both users are invalid")
+
+    messages = Message.query.filter(Message.username_of_sender.in_([username_of_jwt, other_user_username]) & Message.username_of_receiver.in_([username_of_jwt, other_user_username])).all()
 
 
-#     # user_id = get_jwt_identity()
-#     user_meeting_object_from_fields = UserMeeting()
+    return jsonify(message_schemas.dump(messages))
 
-#     user_meeting_object_from_fields.username = username_of_jwt
-#     user_meeting_object_from_fields.time_start = user_meeting_inputted_fields["time_start"]
-#     user_meeting_object_from_fields.time_end = user_meeting_inputted_fields["time_end"]
-#     user_meeting_object_from_fields.location = user_meeting_inputted_fields["location"]
-#     user_meeting_object_from_fields.subject = user_meeting_inputted_fields["subject"]
-#     user_meeting_object_from_fields.description = user_meeting_inputted_fields["description"]
-#     user_meeting_object_from_fields.last_updated = user_meeting_inputted_fields["last_updated"]
 
-#     db.session.add(user_meeting_object_from_fields)
+@message.route("/read/<int:id>", methods=["GET"])
+@jwt_required
+def read_message_using_id(id):
+    #Return a single work history
     
-#     db.session.commit()
+    message_object = Message.query.get(id)
+    username_of_jwt = get_jwt_identity()
+    print(message_object.username_of_sender)
+    print(message_object.username_of_receiver)
+    print(username_of_jwt)
+    if (message_object.username_of_sender == username_of_jwt or message_object.username_of_receiver == username_of_jwt):
+        if (message_object.username_of_receiver == username_of_jwt):
+            message_object.read = True
+            db.session.commit()
+            # reading a message only makes sense when it is the receiver who gets it
+        
+        return jsonify(message_schema.dump(message_object))
 
-#     return jsonify(user_meeting_schema.dump(user_meeting_object_from_fields))
+    return abort(401, description=f"Message with id {id} and a user with username {username_of_jwt} cannot be found")
+
+@message.route("/like/<int:id>", methods=["POST"])
+@jwt_required
+def like_message_using_id(id):
+    #Return a single work history
+    message_object = Message.query.get(id)
+    username_of_jwt = get_jwt_identity()
+    print(username_of_jwt)
+    print(message_object.username_of_receiver)
+    
+    if (message_object.username_of_receiver == username_of_jwt):
+        print(message_object.liked)
+        message_object.liked = True
+        db.session.commit()
+        return "Message was liked."
+            # reading a message only makes sense when it is the receiver who gets it
+
+    return abort(401, description=f"Message with id {id} and a user with username {username_of_jwt} cannot be liked")
+
+
 
 
 # @message.route("/<int:id>", methods=["GET"])

@@ -1,11 +1,11 @@
-from main import ma
-from models.BookImage import BookImage
-from marshmallow.validate import Length
+# from main import ma
+# from models.BookImage import BookImage
+# from marshmallow.validate import Length
 
-class BookImageSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = BookImage
+# class BookImageSchema(ma.SQLAlchemyAutoSchema):
+#     class Meta:
+#         model = BookImage
 
-    filename = ma.String(required=True, validate=Length(min=1))
+#     filename = ma.String(required=True, validate=Length(min=1))
 
-book_image_schema = BookImageSchema()
+# book_image_schema = BookImageSchema()
