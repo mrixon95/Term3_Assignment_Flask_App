@@ -2,6 +2,7 @@ from schemas.ConnectionSchema import connection_schema
 from schemas.ConnectionSchema import connection_schemas
 from models.User import User
 from models.Connection import Connection
+from models.Likes_Table import Likes_Table
 
 from main import db
 from flask_jwt_extended import jwt_required, get_jwt_identity

@@ -3,6 +3,7 @@ from schemas.PostSchema import post_schema
 from schemas.PostSchema import post_schemas
 from models.User import User
 from models.Post import Post
+from models.Likes_Table import Likes_Table
 
 from main import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -46,6 +47,47 @@ def post_id_get(inputted_id):
 
     post_retrieved_ordered = post_retrieved.order_by(Post.last_updated.desc()).all()
     return jsonify(post_schemas.dump(post_retrieved_ordered))
+
+
+
+@post.route("/like/<int:inputted_id>", methods=["POST"])
+@jwt_required
+def post_id_like(inputted_id):
+
+    # Like a particular Post
+
+    username_of_jwt = get_jwt_identity()
+
+    user_of_jwt = User.query.get(username_of_jwt)
+
+    if not user_of_jwt:
+        return abort(404, description="User does not exist")
+
+    post_retrieved = Post.query.filter_by(id=inputted_id).first()
+
+    if not post_retrieved:
+        return abort(404, description=f"No post with {inputted_id} exists")
+
+    like_object = Likes_Table.query.filter(
+        ((Likes_Table.post_id == inputted_id) | (Likes_Table.username_of_like == username_of_jwt))
+    ).first()
+
+    if (not like_object):
+        return abort(404, description=f"Post {inputted_id} has already been liked by user {username_of_jwt}")
+
+
+    post_object_from_fields = Likes_Table()
+
+    post_object_from_fields.post_id = inputted_id
+    post_object_from_fields.username_of_like = username_of_jwt
+
+    db.session.add(post_object_from_fields)
+    
+    db.session.commit()
+
+    return f"Post {inputted_id} is now liked by user {username_of_jwt}"
+
+
 
 
 @post.route("/", methods=["POST"])
