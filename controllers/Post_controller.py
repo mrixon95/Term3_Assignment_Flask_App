@@ -5,6 +5,9 @@ from models.User import User
 from models.Post import Post
 from models.Likes_Table import Likes_Table
 
+from schemas.LikeSchema import like_schema
+from schemas.LikeSchema import like_schemas
+
 from main import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import Blueprint, request, jsonify, abort
@@ -49,6 +52,26 @@ def post_id_get(inputted_id):
     return jsonify(post_schemas.dump(post_retrieved_ordered))
 
 
+@post.route("/get_users_likes/<int:inputted_id>", methods=["GET"])
+def post_id_get_likes(inputted_id):
+
+    import json
+    post_retrieved = Post.query.filter_by(id=inputted_id)
+
+    if not post_retrieved:
+        return abort(404, description=f"No post with {inputted_id} exists")
+    
+    likes_object = Likes_Table.query.with_entities(
+        Likes_Table.username_of_liker
+    ).filter_by(post_id=inputted_id).all()
+
+    users = []
+    for username in likes_object:
+        print(users.append(username))
+
+    return json.dumps(users)
+
+
 
 @post.route("/like/<int:inputted_id>", methods=["POST"])
 @jwt_required
@@ -68,24 +91,66 @@ def post_id_like(inputted_id):
     if not post_retrieved:
         return abort(404, description=f"No post with {inputted_id} exists")
 
+
     like_object = Likes_Table.query.filter(
-        ((Likes_Table.post_id == inputted_id) | (Likes_Table.username_of_like == username_of_jwt))
+        ((Likes_Table.post_id == inputted_id) & (Likes_Table.username_of_liker == username_of_jwt))
     ).first()
 
-    if (not like_object):
+    if like_object:
         return abort(404, description=f"Post {inputted_id} has already been liked by user {username_of_jwt}")
 
 
-    post_object_from_fields = Likes_Table()
+    likes_object = Likes_Table()
 
-    post_object_from_fields.post_id = inputted_id
-    post_object_from_fields.username_of_like = username_of_jwt
+    likes_object.post_id = inputted_id
+    likes_object.username_of_liker = username_of_jwt
 
-    db.session.add(post_object_from_fields)
+    post_retrieved.likes += 1
+
+    db.session.add(likes_object)
     
     db.session.commit()
 
-    return f"Post {inputted_id} is now liked by user {username_of_jwt}"
+    return jsonify(post_schema.dump(likes_object))
+
+
+
+
+
+@post.route("/unlike/<int:inputted_id>", methods=["DELETE"])
+@jwt_required
+def post_id_unlike(inputted_id):
+
+    # Like a particular Post
+
+    username_of_jwt = get_jwt_identity()
+
+    user_of_jwt = User.query.get(username_of_jwt)
+
+    if not user_of_jwt:
+        return abort(404, description="User does not exist")
+
+    post_retrieved = Post.query.filter_by(id=inputted_id).first()
+
+    if not post_retrieved:
+        return abort(404, description=f"No post with {inputted_id} exists")
+
+
+    like_object = Likes_Table.query.filter(
+        ((Likes_Table.post_id == inputted_id) & (Likes_Table.username_of_liker == username_of_jwt))
+    ).first()
+
+    if like_object is None:
+        return abort(404, description=f"Post {inputted_id} has not been liked by user {username_of_jwt}")
+
+
+    json_object_to_return = jsonify(like_schema.dump(like_object))
+
+    db.session.delete(like_object)
+
+    db.session.commit()
+
+    return json_object_to_return
 
 
 

@@ -9,6 +9,7 @@ from models.Meeting import Meeting
 from models.Message import Message
 from models.Connection import Connection
 from models.Post import Post
+from models.Likes_Table import Likes_Table
 
 class User(db.Model):
     __tablename__ = "users"
@@ -27,9 +28,17 @@ class User(db.Model):
     workhistorys = db.relationship("WorkHistory", backref="user", lazy="dynamic")
     certifications = db.relationship("Certification", backref="user", lazy="dynamic")
     resumeprojects = db.relationship("ResumeProject", backref="user", lazy="dynamic")
-    posts = db.relationship("Post", backref="user", lazy="dynamic")
+
     # usermeetings = db.relationship("UserMeeting", backref="user", lazy="dynamic")
     # messages = db.relationship("Message", backref="username_of_sender", lazy="dynamic")
+
+    
+    likes = db.relationship(
+        "Likes_Table",
+        foreign_keys="Likes_Table.username_of_liker",
+        backref ="user"
+    )
+
 
     messages1 = db.relationship(
         "Message",
