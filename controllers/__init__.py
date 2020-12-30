@@ -9,6 +9,7 @@ from controllers.Connection_controller import connection
 from controllers.Post_controller import post
 from controllers.ITNews_controller import itnews
 from controllers.JobSalary_controller import jobsalary
+from controllers.Image_controller import image
 
 registerable_controllers = [
     user,
@@ -21,5 +22,6 @@ registerable_controllers = [
     connection,
     post,
     jobsalary,
-    itnews
+    itnews,
+    image
 ]

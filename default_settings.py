@@ -2,7 +2,7 @@ import os
 
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    JWT_SECRET_KEY = "duck"
+    JWT_SECRET_KEY = "mrixon95"
 
     #1MB for file size uploads
     MAX_CONTENT_LENGTH = 1 * 1024 * 1024

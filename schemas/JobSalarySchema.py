@@ -12,7 +12,7 @@ class JobSalarySchema(ma.SQLAlchemyAutoSchema):
     median = ma.Integer(required=True, validate=Range(min=0.0))
     upper_quartile = ma.Integer(required=True, validate=Range(min=0.0))
     avg_years_experience = ma.Float(required=True, validate=Range(min=0.0, max=50.0))
-    last_updated = ma.String(required=True,nullable=False, default=datetime.utcnow)
+    last_updated = ma.DateTime(required=True,nullable=False, default=datetime.utcnow)
 
 
 job_salary_schema = JobSalarySchema()

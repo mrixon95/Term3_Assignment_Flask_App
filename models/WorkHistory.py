@@ -2,7 +2,7 @@ from main import db
 from datetime import datetime
 
 class WorkHistory(db.Model):
-    __tablename__ = "Workhistorys"
+    __tablename__ = "workhistorys"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(), db.ForeignKey("users.username"), nullable=False)
     job_title = db.Column(db.String(), nullable=False)
