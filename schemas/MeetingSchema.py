@@ -8,12 +8,12 @@ class MeetingSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Meeting
     
-    time_start = ma.String(required=True)
-    time_end = ma.String(required=True)
+    time_start = ma.DateTime(required=True)
+    time_end = ma.DateTime(required=True)
     location = ma.String(required=True)
     subject = ma.String(required=True)
     description = ma.String(required=True)
-    last_updated = ma.String(required=True,nullable=False, default=datetime.utcnow)
+    last_updated = ma.DateTime(required=True,nullable=False, default=datetime.utcnow)
     user = ma.Nested(user_schema)
 
 

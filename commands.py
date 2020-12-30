@@ -30,6 +30,8 @@ def seed_db():
     from models.Message import Message
     from models.Connection import Connection
     from models.Post import Post
+    from models.JobSalary import JobSalary
+    from models.ITNews import ITNews
     from main import bcrypt
     from faker import Faker
     from random import randrange, choice
@@ -39,6 +41,7 @@ def seed_db():
     now = datetime.now()
 
     faker = Faker()
+
     user_list = []
 
     # Create fake users
@@ -93,7 +96,7 @@ def seed_db():
 
         workhistory.username = choice(user_list).username
 
-        workhistory.job_title = choice(job_title)
+        workhistory.job_title = faker.job()
         workhistory.company = choice(company)
         workhistory.city = faker.city()
         workhistory.country = faker.country()
@@ -188,6 +191,28 @@ def seed_db():
         post.last_updated = faker.date_of_birth()
 
         db.session.add(post)
+
+    
+    for i in range(5):
+
+        jobsalary = JobSalary()
+        jobsalary.title = faker.job()
+        jobsalary.lower_quartile = faker.random_int(30, 50)
+        jobsalary.median_salary = faker.random_int(70, 120)
+        jobsalary.upper_quartile = faker.random_int(150, 500)
+        jobsalary.average_years_experience = faker.random_int(1, 10)
+
+        db.session.add(jobsalary)
+
+    for i in range(5):
+
+        ITnews = ITNews()
+        ITnews.article_link = faker.url()
+        ITnews.photo_link = faker.image_url()
+        ITnews.published_time = faker.past_date()
+
+        db.session.add(ITnews)
+
 
 
     db.session.commit()

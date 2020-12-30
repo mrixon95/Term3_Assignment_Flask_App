@@ -8,8 +8,8 @@ class ResumeProjectSchema(ma.SQLAlchemyAutoSchema):
         model = ResumeProject
 
     resume_path = ma.String(required=True)
-    github_account = ma.String(required=True)
-    last_updated = ma.String(required=True)
+    github_account = ma.Url(required=True)
+    last_updated = ma.DateTime(required=True)
     user = ma.Nested(user_schema)
 
 resume_project_schema = ResumeProjectSchema()

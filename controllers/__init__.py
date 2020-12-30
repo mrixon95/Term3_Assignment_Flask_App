@@ -7,6 +7,8 @@ from controllers.Message_controller import message
 from controllers.User_controller import user
 from controllers.Connection_controller import connection
 from controllers.Post_controller import post
+from controllers.ITNews_controller import itnews
+from controllers.JobSalary_controller import jobsalary
 
 registerable_controllers = [
     user,
@@ -17,5 +19,7 @@ registerable_controllers = [
     meeting,
     message,
     connection,
-    post
+    post,
+    jobsalary,
+    itnews
 ]

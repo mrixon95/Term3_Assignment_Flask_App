@@ -13,7 +13,7 @@ class MessageSchema(ma.SQLAlchemyAutoSchema):
     content = ma.String(required=True, validate=validate.Length(min=10))
     read = ma.Boolean(default=False)
     liked = ma.Boolean(default=False)
-    sent_time = ma.String(required=True,nullable=False, default=datetime.utcnow)
+    sent_time = ma.DateTime(required=True,nullable=False, default=datetime.utcnow)
 
 
 message_schema = MessageSchema()

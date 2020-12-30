@@ -11,9 +11,9 @@ class WorkHistorySchema(ma.SQLAlchemyAutoSchema):
     company = ma.String(required=True)
     city = ma.String(required=True)
     country = ma.String(required=True)
-    date_start = ma.String(required=True)
-    date_end = ma.String(required=True)
-    last_updated = ma.String(required=True)
+    date_start = ma.DateTime(required=True)
+    date_end = ma.DateTime(required=True)
+    last_updated = ma.DateTime(required=True)
     user = ma.Nested(user_schema)
     
 
