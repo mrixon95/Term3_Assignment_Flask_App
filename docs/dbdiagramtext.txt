@@ -1,0 +1,134 @@
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+Table users as U {
+  id int [pk, increment] // auto-increment
+  first_name varchar
+  last_name varchar
+  created_at timestamp
+  dob datetime
+  email int
+  mobile varchar
+  city varchar
+  country varchar
+  username timestamp
+  hashed_password datetime
+}
+
+
+Table IT_news {
+  id int [pk, increment] // auto-increment
+  article_link varchar
+  photo_link varchar
+  published_time timestamp
+}
+
+Table connections {
+  user_id_1 int [ref: > U.id]
+  user_id_2 int [ref: > U.id]
+  last_updated timestamp [default: `now()`]
+  status varchar [note: 'is either "pending" or "confirmed"']
+}
+
+Table messages {
+  user_id_from int [ref: > U.id]
+  user_id_to int [ref: > U.id]
+  message varchar
+  read boolean
+  liked boolean
+  sent_time timestamp [default: `now()`]
+  status varchar [note: 'is either "pending" or "confirmed"']
+}
+
+Table posts {
+  id int [pk, increment] // auto-increment
+  user_id int [ref: - U.id]
+  content varchar
+  last_updated timestamp [default: `now()`]
+  status varchar [note: 'is either "pending" or "confirmed"']
+}
+
+
+Table posts_comments_join {
+  post_id int [ref: > posts.id]
+  user_id_post int [ref: > U.id]
+  user_id_comment int [ref: > U.id]
+  last_updated timestamp [default: `now()`]
+}
+
+
+Table photos {
+  id int [pk, increment] // auto-increment
+  user_id int [ref: > U.id]
+  path varchar
+  last_updated timestamp [default: `now()`]
+}
+
+
+
+Table User_Study_History {
+  id int [pk, increment] // auto-increment
+  user_id int [ref: > U.id]
+  institution varchar
+  city varchar
+  country varchar
+  date_start timestamp
+  date_end timestamp
+  last_updated timestamp [default: `now()`]
+}
+
+
+Table User_Work_History {
+  id int [pk, increment] // auto-increment
+  user_id int [ref: - U.id]
+  title varchar
+  company varchar
+  city varchar
+  country varchar
+  date_start timestamp
+  date_end timestamp
+  last_updated timestamp [default: `now()`]
+}
+
+
+Table User_Resume_Projects {
+  id int [pk, increment] // auto-increment
+  user_id int [ref: > U.id]
+  resume_path varchar
+  github_account varchar
+  last_updated timestamp [default: `now()`]
+}
+
+Table User_Meetings {
+  id int [pk, increment] // auto-increment
+  user_id int [ref: > U.id]
+  time_start timestamp
+  time_end timestamp
+  location varchar
+  subject varchar
+  description varchar
+  last_updated timestamp [default: `now()`]
+}
+
+
+Table Job_Salaries {
+  id int [pk, increment] // auto-increment
+  title varchar
+  lower_quartile int
+  median_salary int
+  upper_quartile int
+  avg_years_experience int
+  last_updated timestamp [default: `now()`]
+}
+
+
+Table User_Certifications {
+  id int [pk, increment] // auto-increment
+  user_id int [ref: - U.id]
+  cert_name varchar
+  description varchar
+  issuer varchar
+  date_obtained timestamp
+  last_updated timestamp [default: `now()`]
+}

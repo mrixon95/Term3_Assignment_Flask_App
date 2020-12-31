@@ -72,7 +72,25 @@ def user_image_show_all(username):
     pass
 
 
-@image.route("/<string:username>/image/<int:id>", methods=["DELETE"])
+@image.route("/<int:id>", methods=["DELETE"])
 @jwt_required
-def user_image_delete(book_id, id):
-    pass
+def user_image_delete(id):
+
+    jwt_username = get_jwt_identity()
+
+    image_object = Image.query.filter_by(id=id).first()
+
+    if image_object is None:
+        return abort(401, description=f"There does not exist an image with id {id}")
+
+
+    if (jwt_username != image_object.username):
+        return abort(401, description=f"You are logged in as username: {jwt_username} but the work history id matches to {image_object.username} ")
+
+    json_object_to_return = jsonify(image_schema.dump(image_object))
+
+    db.session.delete(image_object)
+    
+    db.session.commit()
+
+    return json_object_to_return
