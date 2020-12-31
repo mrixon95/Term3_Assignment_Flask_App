@@ -83,9 +83,22 @@ These following flask commands below are for automating tasks related to databas
 
 
 
-There are the steps required as part of the continuous integration workflow when pushing modified code to Github. File reference ci-cd.yml file
+There are the steps required as part of the continuous integration workflow when pushing modified code to GitHub. File reference ci-cd.yml file
 
-1. The test_suite job will run on one of GitHub's VMs using the latest Ubuntu operating system. The new code pushed to github is checked out into this VM.
-2. The VM installs python3.8 and installs the dependencies. These dependencies and their version number are written on seperate lines in the requirements.txt file.
+1. The test_suite job will run on one of GitHub's VMs using the latest Ubuntu operating system. The new code pushed to GitHub is checked out into this VM.
+2. The VM installs python3.8 and installs the dependencies. These dependencies and their version number are written on separate lines in the requirements.txt file.
 3. The automated tests in the tests directory are ran 
 4. The .py files are checked against the PEP8 style guide by running flake8
+
+
+
+## Migrations
+
+If you make any adjustments to the database tables eg. adding a new column to a table, then migrations are needed for recording those changes. The sqlachemy package```flask-migrate``` is in the requirements.txt file so no need to pip install it again.
+
+To set it up:
+
+1. Run `flask db init` and then drop everything in the database using ``` flask db-custom drop```
+2. Create the migration using ```flask db migrate -m "Initial migration"``` and then run the migration using ```flask db upgrade```
+
+You are now ready to make changes to the model that will automatically recorded every single time you migrate.
