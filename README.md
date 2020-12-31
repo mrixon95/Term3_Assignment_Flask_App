@@ -43,10 +43,10 @@ Docs for my app:
 
 ### Entity Relationship diagram
 
-* Each User can have multiple photos, posts, comments on posts, study qualifications, past work positions, certifications, resumes and projects and connections
-* Each post can have many comments
-* Each message has 2 users (one sending the message and one receiving the message)
-* Each connection has 2 users (status is either pending or confirmed)
+* Each User can have multiple images, certifications, workhistories, connections, meetings, messages, study histories, resume/projects, posts, comments and like multiple posts
+* Each Like belongs to one post and one user
+* Each comment belongs to one post and one user
+* Each connection has one user who requests the connection and one user who can decide to confirm it
 
 
 
