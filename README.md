@@ -50,7 +50,7 @@ Docs for my app:
 
 
 
-![Entity_Relationship_Diagram](docs/ERD_Diagram_dbdiagramio.png)
+![Entity_Relationship_Diagram](docs/ERD_Diagram.png)
 
 
 ## Installation
