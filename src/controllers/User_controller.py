@@ -19,15 +19,28 @@ def user_index():
     users = User.query.all()
     return jsonify(user_schemas.dump(users))
 
+@user.route("/<string:username_inputted>", methods=["GET"])
+def user_get(username_inputted):
+    #Return a single Study history
+    user_object = User.query.filter_by(username=username_inputted).first()
+    if not user_object:
+        return abort(401, description="Invalid id for a user")
+        
+    return jsonify(user_schema.dump(user_object))
+
 
 @user.route("/", methods=["POST"])
 def user_create():
 
     user_fields = user_schema.load(request.json)
 
-    user = User.query.filter_by(email=user_fields["username"]).first()
+    user_with_same_email = User.query.filter_by(email=user_fields["email"]).first()
+    user_with_same_username = User.query.filter_by(username=user_fields["username"]).first()
 
-    if user:
+    if user_with_same_email:
+         return abort(400, description="Username already registered")
+
+    if user_with_same_username:
          return abort(400, description="Email already registered")
 
     user = User()
@@ -52,9 +65,11 @@ def user_create():
 @user.route("/login", methods=["POST"])
 def user_login():
 
-    username_submitted = request.json.get("username")
-    password_submitted = request.json.get("password")
+    username_submitted = request.json["username"]
+    password_submitted = request.json["password"]
 
+    print("username_submitted: " + username_submitted)
+    print("password_submitted: " + password_submitted)
     user = User.query.filter_by(username=username_submitted).first()
 
     if not user or not bcrypt.check_password_hash(user.password, password_submitted):

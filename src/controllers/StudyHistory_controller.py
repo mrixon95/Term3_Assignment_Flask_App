@@ -73,6 +73,9 @@ def studyhistory_create():
 def studyhistory_get(id):
     #Return a single Study history
     study_history_object = StudyHistory.query.get(id)
+    if not study_history_object:
+        return abort(401, description="Invalid id for a study history")
+        
     return jsonify(study_history_schema.dump(study_history_object))
 
 @studyhistory.route("/<int:id>", methods=["PUT", "PATCH"])

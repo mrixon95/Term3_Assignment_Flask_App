@@ -28,7 +28,7 @@ def resumeproject_user(inputted_username):
     resume_project_unordered = ResumeProject.query.filter_by(username=inputted_username)
 
     if not resume_project_unordered:
-        return abort(404, description="No work histories to return")
+        return abort(404, description="No resume/projects to return")
 
     resume_project_ordered = resume_project_unordered.order_by(ResumeProject.date_start.desc()).all()
     return jsonify(resume_project_schemas.dump(resume_project_ordered))
@@ -71,7 +71,11 @@ def resumeproject_create():
 def resumeproject_get(id):
     #Return a single work history
     resume_project_object = ResumeProject.query.get(id)
+    if not resume_project_object:
+        return abort(401, description="Invalid id for a resume/project")
+        
     return jsonify(resume_project_schema.dump(resume_project_object))
+
 
 @resumeproject.route("/<int:id>", methods=["PUT", "PATCH"])
 @jwt_required
@@ -89,7 +93,7 @@ def resumeproject_update(id):
     resume_project_object = ResumeProject.query.filter_by(id=id, username=jwt_username)
 
     if resume_project_object.count() != 1:
-        return abort(401, description="Unauthorised to update this profile")
+        return abort(401, description="Unauthorised to update this resume/project")
 
     resume_project_object.update(resume_project_fields)
     db.session.commit()
@@ -109,13 +113,13 @@ def resumeproject_delete(id):
     resume_project_object = ResumeProject.query.filter_by(id=id).first()
 
     if resume_project_object is None:
-        return abort(401, description=f"There does not exist a workhistory with id {id}")
+        return abort(401, description=f"There does not exist a resume/project with id {id}")
 
 
     if (jwt_username != resume_project_object.username):
-        return abort(401, description=f"You are logged in as username: {jwt_username} but the work history id matches to {resume_project_object.username} ")
+        return abort(401, description=f"You are logged in as username: {jwt_username} but the resume/project id matches to {resume_project_object.username} ")
 
-    # Check the user that wants to delete the workhistory
+    # Check the user that wants to delete the resume/project
     resume_project_object = ResumeProject.query.filter_by(id=id, username=jwt_username).first()
 
     if not resume_project_object:

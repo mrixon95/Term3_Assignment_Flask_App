@@ -21,6 +21,7 @@ def workhistory_all():
 def workhistory_user(inputted_username):
     # Retrieve a particular users workhistorys
 
+    print(inputted_username)
     user_object = User.query.get(inputted_username)
 
     if not user_object:
@@ -90,7 +91,7 @@ def workhistory_update(id):
     work_history_object = WorkHistory.query.filter_by(id=id, username=jwt_username)
 
     if work_history_object.count() != 1:
-        return abort(401, description="Unauthorised to update this profile")
+        return abort(401, description=f"Work history with id {id} and username {jwt_username} does not exist")
 
     work_history_object.update(work_history_fields)
     db.session.commit()

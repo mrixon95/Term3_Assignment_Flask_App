@@ -48,11 +48,11 @@ def seed_db():
 
     for i in range(5):
         user = User()
-        user.username = faker.word()
+        user.username = f"test{i}"
         user.first_name = faker.first_name()
         user.last_name = faker.last_name()
         user.created_at = now.strftime('%Y-%m-%d %H:%M:%S')
-        user.email = faker.free_email()
+        user.email = f"test{i}@gmail.com"
         user.password = bcrypt.generate_password_hash("123456").decode("utf-8")
         user.mobile = faker.phone_number()
         user.city = faker.city()
