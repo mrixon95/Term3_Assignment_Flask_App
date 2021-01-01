@@ -158,33 +158,34 @@ class TestStudyHistory(unittest.TestCase):
                          f"Can't update since no study history has id of {id}")
 
         
-    def test_studyhistory_delete(self):
+    # # def test_studyhistory_delete(self):
 
-        user8_study_history = {
-            "city": "The city stuff",
-            "company": "Company name",
-            "country": "Gambia",
-            "date_end": "2005-01-03 00:00:00",
-            "date_start": "1956-11-10 00:00:00",
-            "job_title": "cool job",
-            "last_updated": "2020-12-26 04:11:15.390409"
-        }
+    #     user8_study_history = {
+    #         "city": "The city stuff",
+    #         "company": "Company name",
+    #         "country": "Gambia",
+    #         "date_end": "2005-01-03 00:00:00",
+    #         "date_start": "1956-11-10 00:00:00",
+    #         "job_title": "cool job",
+    #         "last_updated": "2020-12-26 04:11:15.390409"
+    #     }
 
-        response1 = self.client.post("/studyhistory/", json=user8_study_history, headers=self.user8_auth_header)
-        id = response1.get_json()["id"]
+    #     response1 = self.client.post("/studyhistory/", json=user8_study_history, headers=self.user8_auth_header)
+
+    #     id = response1.get_json()["id"]
 
 
-        response6 = self.client.delete(f"/studyhistory/{id}", headers=self.user8_auth_header)
+    #     response6 = self.client.delete(f"/studyhistory/{id}", headers=self.user8_auth_header)
 
-        self.assertEqual(response6.status_code, 200,
-                         "Update study history returns 200")
+    #     self.assertEqual(response6.status_code, 200,
+    #                      "Update study history returns 200")
         
-        id += 10
+    #     id += 10
         
-        response8 = self.client.delete(f"/studyhistory/{id}", headers=self.user8_auth_header)
+    #     response8 = self.client.delete(f"/studyhistory/{id}", headers=self.user8_auth_header)
 
-        self.assertEqual(response8.status_code, 401,
-                         f"Can't update since no study history has id of {id}")
+    #     self.assertEqual(response8.status_code, 401,
+    #                      f"Can't update since no study history has id of {id}")
 
 
 

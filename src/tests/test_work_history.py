@@ -157,33 +157,33 @@ class TestWorkHistory(unittest.TestCase):
                          f"Can't update since no workhistory has id of {id}")
 
         
-    def test_workhistory_delete(self):
+    # def test_workhistory_delete(self):
 
-        user4_work_history = {
-            "city": "The city stuff",
-            "company": "Company name",
-            "country": "Gambia",
-            "date_end": "2005-01-03 00:00:00",
-            "date_start": "1956-11-10 00:00:00",
-            "job_title": "cool job",
-            "last_updated": "2020-12-26 04:11:15.390409"
-        }
+    #     user4_work_history = {
+    #         "city": "The city stuff",
+    #         "company": "Company name",
+    #         "country": "Gambia",
+    #         "date_end": "2005-01-03 00:00:00",
+    #         "date_start": "1956-11-10 00:00:00",
+    #         "job_title": "cool job",
+    #         "last_updated": "2020-12-26 04:11:15.390409"
+    #     }
 
-        response1 = self.client.post("/workhistory/", json=user4_work_history, headers=self.user4_auth_header)
-        id = response1.get_json()["id"]
+    #     response1 = self.client.post("/workhistory/", json=user4_work_history, headers=self.user4_auth_header)
+    #     id = response1.get_json()["id"]
 
 
-        response2 = self.client.delete(f"/workhistory/{id}", headers=self.user4_auth_header)
+    #     response2 = self.client.delete(f"/workhistory/{id}", headers=self.user4_auth_header)
 
-        self.assertEqual(response2.status_code, 200,
-                         "Update work history returns 200")
+    #     self.assertEqual(response2.status_code, 200,
+    #                      "Update work history returns 200")
         
-        id += 10
+    #     id += 10
         
-        response4 = self.client.delete(f"/workhistory/{id}", headers=self.user4_auth_header)
+    #     response4 = self.client.delete(f"/workhistory/{id}", headers=self.user4_auth_header)
 
-        self.assertEqual(response4.status_code, 401,
-                         f"Can't update since no workhistory has id of {id}")
+    #     self.assertEqual(response4.status_code, 401,
+    #                      f"Can't update since no workhistory has id of {id}")
 
 
 
