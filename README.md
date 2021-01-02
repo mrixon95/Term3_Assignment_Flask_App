@@ -1,5 +1,11 @@
 # ConnectIT: Connecting IT professionals
 
+This project is made to implement a flask app that returns data from a database and executes without breaking.
+
+**R2:** [Report 1: Privacy and Security Analysis](docs/Report 1 Privacy and Security Report.md)
+
+**R3:** [Report 2 Professional Ethical Legal](docs/Report 2 Professional Ethical Legal.md)
+
 My app is designed to be similar to LinkedIn but for IT professionals.
 On ConnectIT, IT professionals will be able to:
 
@@ -7,11 +13,16 @@ On ConnectIT, IT professionals will be able to:
 * like and comment on user posts
 * add work history, study history, certifications and links to their resume/projects
 * write down meetings they have
+* send messages to other users and like their messages
 
 Docs for my app:
-* [Trello board](https://trello.com/b/tTpbSo3U/project-management-tracking-application)
-* [End points](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mrixon95/Term3_Assignment_Flask_App/main/docs/connectITAPI_endpoints.yaml)
-* [Wireframes](docs/Wireframes.md)
+* [Trello board](https://trello.com/b/tTpbSo3U/project-management-tracking-application) for **project management**
+* [End points](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mrixon95/Term3_Assignment_Flask_App/main/docs/connectITAPI_endpoints.yaml) for **interacting with the flask app**
+* [Wireframes](docs/Wireframes.md) for **designing the front end** 
+
+
+
+**R4, R9:** My data model uses a **PostgreSQL database** and has one-to-one, one-to-many and many-to-many relationships between the tables. The application is able to communicate with the postgresql database in the cloud by using SQLAlchemy. This module uses Object Relational Mapping which abstracts table records into Python classes. The application also makes use of Marshmallow schemas to validate data sent to the database and to deserialise into json format before being sent back to the user in the HTTP response. 
 
 
 
