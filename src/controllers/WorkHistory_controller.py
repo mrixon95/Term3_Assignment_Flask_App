@@ -115,7 +115,7 @@ def workhistory_delete(id):
 
 
     if (jwt_username != work_history_object.username):
-        return abort(401, description=f"You are logged in as username: {jwt_username} but the work history id matches to {work_history_object.username} ")
+        return abort(401, description=f"The work history id belongs to a different user than your jwt token")
 
     # Check the user that wants to delete the workhistory
     work_history_object = WorkHistory.query.filter_by(id=id, username=jwt_username).first()
