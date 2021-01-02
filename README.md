@@ -9,34 +9,13 @@ On ConnectIT, IT professionals will be able to:
 * write down meetings they have
 
 Docs for my app:
-* [Trello board](https://trello.com/b/7Y9qhmBJ/project-management)
-* [Swagger editor yml](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mrixon95/Docs_On_Term3_CCC_course/main/LinkedIn%20App/connectITAPI.yaml)
+* [Trello board](https://trello.com/b/tTpbSo3U/project-management-tracking-application)
+* [End points](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mrixon95/Docs_On_Term3_CCC_course/main/LinkedIn%20App/connectITAPI.yaml)
+* [Wireframes](docs/Wireframes.md)
 
 
 
-
-# Wireframes
-
-### Login page
-![Login_Page_Wireframe](docs/Login_Page_Wireframe.jpg)
-
-### Profile page
-![Profile_Page_Wireframe](docs/Profile_Page_Wireframe.png)
-
-### Activity Feed page
-![Activity_Feed_Wireframe](docs/Activity_Feed_Wireframe.png)
-
-### Diary page
-![Diary_Page_Wireframe](docs/Diary_Page_Wireframe.png)
-
-### Salary data page
-![Salary_Page_Wireframe](docs/Salary_Page_Wireframe.png)
-
-
-### Settings page
-![Setting_Page_Wireframe](docs/Setting_Page_Wireframe.png)
-
-### Proposed Entity Relationship Diagram
+## Proposed Entity Relationship Diagram
 
 * Each User can have multiple images, certifications, work histories, connections, meetings, messages, study histories, resume/projects, posts, comments and like multiple posts
 * Each Like belongs to one post and one user
