@@ -13,11 +13,11 @@ from datetime import datetime
 message = Blueprint('message', __name__, url_prefix="/message")
 
 
-@message.route("/all", methods=["GET"])
-def get_all_messages():
-    # Retrieve all workhistorys
-    messages = Message.query.all()
-    return jsonify(message_schemas.dump(messages))
+# @message.route("/all", methods=["GET"])
+# def get_all_messages():
+#     # Retrieve all workhistorys
+#     messages = Message.query.all()
+#     return jsonify(message_schemas.dump(messages))
 
 
 @message.route("/singleuser", methods=["GET"])

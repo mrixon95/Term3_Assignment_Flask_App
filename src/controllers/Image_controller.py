@@ -67,9 +67,9 @@ def user_image_show(image_number, username_inputted):
         headers={"Content-Disposition": f"attachment;filename=image"}
     )
 
-@image.route("/<string:username>/image/<int:id>", methods=["GET"])
-def user_image_show_all(username):
-    pass
+# @image.route("/<string:username>/image/<int:id>", methods=["GET"])
+# def user_image_show_all(username):
+#     pass
 
 
 @image.route("/<int:id>", methods=["DELETE"])

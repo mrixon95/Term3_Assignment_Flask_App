@@ -13,20 +13,20 @@ from sqlalchemy.orm import joinedload
 from datetime import timedelta
 user = Blueprint('user', __name__, url_prefix="/user")
 
-@user.route("/", methods=["GET"])
-def user_index():
-    # Retrieve all users
-    users = User.query.all()
-    return jsonify(user_schemas.dump(users))
+# @user.route("/", methods=["GET"])
+# def user_index():
+#     # Retrieve all users
+#     users = User.query.all()
+#     return jsonify(user_schemas.dump(users))
 
-@user.route("/<string:username_inputted>", methods=["GET"])
-def user_get(username_inputted):
-    #Return a single Study history
-    user_object = User.query.filter_by(username=username_inputted).first()
-    if not user_object:
-        return abort(401, description="Invalid id for a user")
+# @user.route("/<string:username_inputted>", methods=["GET"])
+# def user_get(username_inputted):
+#     #Return a single Study history
+#     user_object = User.query.filter_by(username=username_inputted).first()
+#     if not user_object:
+#         return abort(401, description="Invalid id for a user")
         
-    return jsonify(user_schema.dump(user_object))
+#     return jsonify(user_schema.dump(user_object))
 
 
 @user.route("/", methods=["POST"])

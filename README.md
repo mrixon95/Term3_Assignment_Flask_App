@@ -10,7 +10,7 @@ On ConnectIT, IT professionals will be able to:
 
 Docs for my app:
 * [Trello board](https://trello.com/b/tTpbSo3U/project-management-tracking-application)
-* [End points](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mrixon95/Docs_On_Term3_CCC_course/main/LinkedIn%20App/connectITAPI.yaml)
+* [End points](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/mrixon95/Term3_Assignment_Flask_App/blob/main/docs/connectITAPI_endpoints.yaml)
 * [Wireframes](docs/Wireframes.md)
 
 

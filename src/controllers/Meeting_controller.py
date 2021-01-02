@@ -11,11 +11,11 @@ from sqlalchemy.orm import joinedload
 
 meeting = Blueprint('meeting', __name__, url_prefix="/meeting")
 
-@meeting.route("/", methods=["GET"])
-def meeting_all():
-    # Retrieve all workhistorys
-    meetings = Meeting.query.all()
-    return jsonify(meeting_schemas.dump(meetings))
+# @meeting.route("/", methods=["GET"])
+# def meeting_all():
+#     # Retrieve all workhistorys
+#     meetings = Meeting.query.all()
+#     return jsonify(meeting_schemas.dump(meetings))
 
 
 @meeting.route("/<string:inputted_username>", methods=["GET"])

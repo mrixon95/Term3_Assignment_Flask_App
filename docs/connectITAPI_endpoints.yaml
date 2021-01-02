@@ -1,0 +1,840 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "T3A3 - Connect IT"
+tags:
+- name: "users"
+  description: "User related functions"
+- name: "post"
+  description: "Post functions"
+- name: "connection"
+  description: "Connection functions"
+- name: "resumeproject"
+  description: "Functions for a users resume or project"
+- name: "jobsalary"
+  description: "Functions for job salary"
+- name: "message"
+  description: "Message related functions"
+- name: "meeting"
+  description: "Meeting related functions"
+- name: "itnews"
+  description: "IT news functions"
+- name: "image"
+  description: "images functions"
+- name: "workhistory"
+  description: "workhistory functions"
+- name: "studyhistory"
+  description: "studyhistory functions"
+- name: "certification"
+  description: "certifications functions"
+paths:
+  /user/:
+    post:
+      tags: 
+      - "users"
+      summary: "Creates a user"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "Logs in user"
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: "string"
+            password:
+              type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "incorrect login credentials"
+  /user/login:
+    post:
+      tags: 
+      - "users"
+      summary: "Logs user into system"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "Logs in user"
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: "string"
+            password:
+              type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "incorrect login credentials"
+  /connection/pending/{username}:
+    get:
+      tags:
+      - "connection"
+      summary: "Get pending connections of a user"
+      parameters:
+      - name: "username"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /connection/confirm/{username}:
+    put:
+      tags:
+      - "connection"
+      summary: "Confirm a connection"
+      parameters:
+      - name: "username"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /connection/all:
+    get:
+      tags:
+      - "connection"
+      summary: "See all connections"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /connection/{username}:
+    get:
+      tags:
+      - "connection"
+      summary: "Get connections of a user"
+      parameters:
+      - name: "username"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    post:
+      tags:
+      - "connection"
+      summary: "Create new connection"
+      parameters:
+      - name: "username"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "connection"
+      summary: "Delete a connection"
+      parameters:
+      - name: "username"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /workhistory/:
+    post:
+      tags:
+      - "workhistory"
+      summary: "Create new work history"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /workhistory/all:
+    get:
+      tags:
+      - "workhistory"
+      summary: "Retrieve all work histories"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /workhistory/{id}:
+    get:
+      tags:
+      - "workhistory"
+      summary: "Retrieve existing work history"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    put:
+      tags:
+      - "workhistory"
+      summary: "Update existing work history"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "workhistory"
+      summary: "Deleting existing work history"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /studyhistory/:
+    post:
+      tags:
+      - "studyhistory"
+      summary: "Create new study history"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /studyhistory/all:
+    get:
+      tags:
+      - "studyhistory"
+      summary: "Retrieve all work histories"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /studyhistory/{id}:
+    get:
+      tags:
+      - "studyhistory"
+      summary: "Retrieve existing study history"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    put:
+      tags:
+      - "studyhistory"
+      summary: "Update existing study history"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "studyhistory"
+      summary: "Deleting existing study history"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /certification/:
+    post:
+      tags:
+      - "certification"
+      summary: "Create new certification"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /certification/all:
+    get:
+      tags:
+      - "certification"
+      summary: "Retrieve all certifications"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /certification/{id}:
+    get:
+      tags:
+      - "certification"
+      summary: "Retrieve existing certification"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    put:
+      tags:
+      - "certification"
+      summary: "Update existing certification"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "certification"
+      summary: "Deleting existing certification"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /resumeproject/:
+    post:
+      tags:
+      - "resumeproject"
+      summary: "Create new resume/project"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /resumeproject/all:
+    get:
+      tags:
+      - "resumeproject"
+      summary: "Retrieve all resume/project"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /resumeproject/{id}:
+    get:
+      tags:
+      - "resumeproject"
+      summary: "Retrieve existing resume/project"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    put:
+      tags:
+      - "resumeproject"
+      summary: "Update existing resume/project"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "resumeproject"
+      summary: "Deleting existing resume/project"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /jobsalary/:
+    post:
+      tags:
+      - "jobsalary"
+      summary: "Create new job salary"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /jobsalary/all:
+    get:
+      tags:
+      - "jobsalary"
+      summary: "Retrieve all job salaries"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /jobsalary/{id}:
+    get:
+      tags:
+      - "jobsalary"
+      summary: "Retrieve existing job salary"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    put:
+      tags:
+      - "jobsalary"
+      summary: "Update existing job salary"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "jobsalary"
+      summary: "Deleting existing job salary"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /itnews/:
+    post:
+      tags:
+      - "itnews"
+      summary: "Post news article"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /itnews/all:
+    get:
+      tags:
+      - "itnews"
+      summary: "Retrieve all news articles"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /itnews/{id}:
+    get:
+      tags:
+      - "itnews"
+      summary: "Retrieve particular news article"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    put:
+      tags:
+      - "itnews"
+      summary: "Update existing news article"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "itnews"
+      summary: "Deleting news article"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /meeting/:
+    post:
+      tags:
+      - "meeting"
+      summary: "Create new meeting"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /meeting/all:
+    get:
+      tags:
+      - "meeting"
+      summary: "Retrieve all meetings"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /meeting/{id}:
+    get:
+      tags:
+      - "meeting"
+      summary: "Retrieve particular meeting information"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    put:
+      tags:
+      - "meeting"
+      summary: "Update existing meeting information"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "meeting"
+      summary: "Deleting existing meeting"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /image/:
+    post:
+      tags:
+      - "image"
+      summary: "Create new image"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /image/{id}/username/{username}:
+    get:
+      tags:
+      - "image"
+      summary: "Retrieve image"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      - name: "username"
+        in: "path"
+        required: true
+        type: "boolean"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /image/{id}:
+    delete:
+      tags:
+      - "image"
+      summary: "Delete image"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /message/:
+    post:
+      tags:
+      - "message"
+      summary: "Create new message"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /message/read/{id}:
+    get:
+      tags:
+      - "message"
+      summary: "Read message"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"  
+  /message/like/{id}:
+    get:
+      tags:
+      - "message"
+      summary: "Like message"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin" 
+  /message/singleuser:
+    get:
+      tags:
+      - "message"
+      summary: "Get personal messages"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /message/betweentwousers:
+    get:
+      tags:
+      - "message"
+      summary: "Get discussion between two users"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /post/:
+    post:
+      tags:
+      - "post"
+      summary: "Create new post"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /post/read/{id}:
+    get:
+      tags:
+      - "post"
+      summary: "Read post"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"  
+  /post/like/{id}:
+    get:
+      tags:
+      - "post"
+      summary: "Like post"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin" 
+  /post/unlike/{id}:
+    get:
+      tags:
+      - "post"
+      summary: "Unlike post"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin" 
+  /post/get_users_likes/{id}:
+    get:
+      tags:
+      - "post"
+      summary: "Find out which users liked a post"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin" 
+  /post/all:
+    get:
+      tags:
+      - "post"
+      summary: "Retrieve all posts"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+  /post/{id}:
+    get:
+      tags:
+      - "post"
+      summary: "Retrieve post"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    put:
+      tags:
+      - "post"
+      summary: "Update existing post"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    delete:
+      tags:
+      - "post"
+      summary: "Deleting post"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "401":
+          description: "Invalid admin"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
