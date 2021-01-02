@@ -182,14 +182,15 @@ def seed_db():
 
         db.session.add(connection)
 
+
+
     for i in range(5):
 
         post = Post()
         post.username = user_list[i % 5].username
         post.content = faker.text()
-        post.likes = i
         post.last_updated = faker.date_of_birth()
-
+        
         db.session.add(post)
 
     

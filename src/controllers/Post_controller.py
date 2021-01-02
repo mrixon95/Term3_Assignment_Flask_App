@@ -71,6 +71,24 @@ def post_id_get_likes(inputted_id):
 
     return json.dumps(users)
 
+@post.route("/get_num_likes/<int:inputted_id>", methods=["GET"])
+def post_id_get_num_likes(inputted_id):
+
+    import json
+    post_retrieved = Post.query.filter_by(id=inputted_id)
+
+    if not post_retrieved:
+        return abort(404, description=f"No post with {inputted_id} exists")
+    
+    num_likes = Likes_Table.query.with_entities(
+        Likes_Table.username_of_liker
+    ).filter_by(post_id=inputted_id).count()
+
+
+
+    return { 'post_id': inputted_id,
+        'num_likes': num_likes}
+
 
 
 @post.route("/like/<int:inputted_id>", methods=["POST"])
@@ -108,10 +126,11 @@ def post_id_like(inputted_id):
     post_retrieved.likes += 1
 
     db.session.add(likes_object)
+    db.session.add(post_retrieved)
     
     db.session.commit()
 
-    return jsonify(post_schema.dump(likes_object))
+    return jsonify(post_schema.dump(post_retrieved))
 
 
 

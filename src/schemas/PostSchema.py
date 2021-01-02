@@ -9,7 +9,7 @@ class PostSchema(ma.SQLAlchemyAutoSchema):
     
     username = ma.String(required=True, validate=Length(min=4))
     content = ma.String(required=True)
-    likes = ma.Integer(required=True, validate=Range(min=0))
+    likes = ma.Integer(default=0, validate=Range(min=0))
     last_updated = ma.DateTime(required=True,nullable=False, default=datetime.utcnow)
 
 
