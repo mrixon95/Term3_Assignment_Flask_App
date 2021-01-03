@@ -40,13 +40,13 @@ Docs for my app:
 
 ### Login Page
 
-![jinja_log_in_page](C:\Users\Owner\Documents\Coder academy\Assignment_T3A3\Assignment\docs\jinja_log_in_page.PNG)
+![jinja_log_in_page](docs/jinja_log_in_page.PNG)
 
 ### List of work experiences
 
 
 
-![jinja_work_experiences](docs\jinja_work_experiences.PNG)
+![jinja_work_experiences](docs/jinja_work_experiences.PNG)
 
 ### R11: Join table example
 
