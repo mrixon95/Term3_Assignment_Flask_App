@@ -29,14 +29,6 @@ class LoginForm(FlaskForm):
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField('Log In')
 
-
-# class AdminLoginForm(FlaskForm):
-#     username = StringField(
-#         'username', validators=[DataRequired(), Length(min=1)])
-#     password = PasswordField('password', validators=[DataRequired()])
-#     submit = SubmitField('Log In')
-
-
 class UpdateUserForm(FlaskForm):
     first_name = StringField('first_name')
     last_name = StringField('last_name')
@@ -62,9 +54,22 @@ class CreateWorkHistory(FlaskForm):
 
     submit = SubmitField("Create Work History")
 
+class CreateStudyHistory(FlaskForm):
+    qualification_title = StringField("qualification_title", validators=[DataRequired(), Length(min=1)])
+    institution = StringField("institution", validators=[DataRequired(), Length(min=1)])
+    city = StringField("city", validators=[DataRequired(), Length(min=1)])
+    country = StringField("country", validators=[DataRequired(), Length(min=1)])
+    date_start = DateField("date_start", validators=[DataRequired()])
+    date_end = DateField("date_end", validators=[DataRequired()])
+
+    submit = SubmitField("Create Study History")
+
 
 class UpdateWorkHistory(CreateWorkHistory):
     submit = SubmitField("Update Work History")
+
+class UpdateStudyHistory(CreateWorkHistory):
+    submit = SubmitField("Update Study History")
 
 
 class UnrecommendButton(FlaskForm):
@@ -75,38 +80,3 @@ class RemoveButton(FlaskForm):
     submit = SubmitField("Remove")
 
 
-# class CreateGroup(FlaskForm):
-#     name = StringField("name", validators=[DataRequired(), Length(min=1)])
-#     description = StringField("description")
-#     submit = SubmitField("Create Group")
-
-
-# class UpdateGroup(CreateGroup):
-#     submit = SubmitField("Update Group")
-
-
-# class JoinGroup(FlaskForm):
-#     submit = SubmitField("Join")
-
-
-# class UnjoinGroup(FlaskForm):
-#     submit = SubmitField("Unjoin")
-
-
-# class AddButton(FlaskForm):
-#     submit = SubmitField("Add to group")
-
-
-# class CreateContent(FlaskForm):
-#     title = StringField("title", validators=[DataRequired(), Length(min=1)])
-#     genre = StringField("genre", validators=[DataRequired()])
-#     year = IntegerField("year")
-#     submit = SubmitField("Add content")
-
-
-# class RestoreButton(FlaskForm):
-#     submit = SubmitField("Restore")
-
-
-# class BackupButton(FlaskForm):
-#     submit = SubmitField("Backup Database")

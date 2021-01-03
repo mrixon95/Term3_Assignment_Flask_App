@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ studyhistory.name }}</h1>
+
+<h2>Content</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Qualification Title</th>
+                <th>Institution</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Date Start</th>
+                <th>Date End</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ studyhistory.qualification_title }}</td>
+                <td>{{ studyhistory.institution }}</td>
+                <td>{{ studyhistory.city }}</td>
+                <td>{{ studyhistory.country }}</td>
+                <td>{{ studyhistory.date_start }}</td>
+                <td>{{ studyhistory.date_end }}</td>
+                <td>{{ studyhistory.last_updated }}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

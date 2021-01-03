@@ -1,6 +1,8 @@
 
 from schemas.WorkHistorySchema import work_history_schema
 from schemas.WorkHistorySchema import work_history_schemas
+# from schemas.User_WorkHistorySchema import user_work_history_schema
+# from schemas.User_WorkHistorySchema import user_work_history_schemas
 from models.User import User
 from models.WorkHistory import WorkHistory
 
@@ -8,6 +10,7 @@ from main import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import Blueprint, request, jsonify, abort
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func
 workhistory = Blueprint('workhistory', __name__, url_prefix="/workhistory")
 
 @workhistory.route("/", methods=["GET"])
@@ -15,6 +18,16 @@ def workhistory_all():
     # Retrieve all workhistorys
     work_histories = WorkHistory.query.all()
     return jsonify(work_history_schemas.dump(work_histories))
+
+
+
+
+
+# @workhistory.route("/peruser", methods=["GET"])
+# def get_workhistory_peruser():
+
+#     query = User.query.with_entities(User.username, func.count(WorkHistory.id)).join(WorkHistory, WorkHistory.username==User.username).group_by(User.username)
+#     return jsonify(user_work_history_schemas.dump(query))
 
 
 @workhistory.route("/user/<string:inputted_username>", methods=["GET"])

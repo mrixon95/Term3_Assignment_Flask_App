@@ -1,6 +1,7 @@
 
 from schemas.PostSchema import post_schema
 from schemas.PostSchema import post_schemas
+from schemas.UserCountSchema import user_count_schema, user_count_schemas
 from models.User import User
 from models.Post import Post
 from models.Likes_Table import Likes_Table
@@ -12,6 +13,7 @@ from main import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import Blueprint, request, jsonify, abort
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func
 post = Blueprint('post', __name__, url_prefix="/post")
 
 @post.route("/", methods=["GET"])
@@ -19,6 +21,8 @@ def post_all():
     # Retrieve all Studyhistorys
     posts = Post.query.all()
     return jsonify(post_schemas.dump(posts))
+
+
 
 
 @post.route("/<string:inputted_username>", methods=["GET"])
@@ -87,6 +91,12 @@ def post_id_get_num_likes(inputted_id):
 
     return { 'post_id': inputted_id,
         'num_likes': num_likes}
+
+
+
+
+
+
 
 
 
@@ -263,5 +273,17 @@ def post_delete(id):
 
     return json_object_to_return
 
+
+@post.route("/likes/peruser", methods=["GET"])
+def get_likes_made_per_user():
+
+    query = User.query.with_entities(User.username, func.count(Likes_Table.username_of_liker)).join(Likes_Table, Likes_Table.username_of_liker==User.username).group_by(User.username)
+    return jsonify(user_count_schemas.dump(query))
+
+@post.route("/made/peruser", methods=["GET"])
+def get_post_made_per_user():
+
+    query = User.query.with_entities(User.username, func.count(Post.id)).join(Post).group_by(User.username)
+    return jsonify(user_count_schemas.dump(query))
 
 

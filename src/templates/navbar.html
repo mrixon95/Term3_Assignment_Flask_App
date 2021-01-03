@@ -1,5 +1,26 @@
-<nav>
+<!-- <nav>
     <a href="{{ url_for('web_users.get_user') }}">Account Info</a>
-    <a href="{{ url_for('web_workhistory.show_workhistories') }}">workhistories</a>
+    <a href="{{ url_for('web_workhistory.show_workhistories') }}">Work Experience</a>
+    <a href="{{ url_for('web_studyhistory.show_studyhistories') }}">Study record</a>
     <a href="{{ url_for('web_users.logout') }}">Logout</a>
-</nav>
+</nav> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('web_users.get_user') }}">Account Info <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('web_workhistory.show_workhistories') }}">Work Experience</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('web_studyhistory.show_studyhistories') }}">Study record</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('web_users.logout') }}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>

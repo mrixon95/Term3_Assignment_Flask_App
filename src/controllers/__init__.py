@@ -12,6 +12,7 @@ from controllers.JobSalary_controller import jobsalary
 from controllers.Image_controller import image
 from controllers.web_users_controller import web_users
 from controllers.web_workhistory_controller import web_workhistory
+from controllers.web_studyhistory_controller import web_studyhistory
 
 registerable_controllers = [
     user,
@@ -27,5 +28,6 @@ registerable_controllers = [
     itnews,
     image,
     web_users,
-    web_workhistory
+    web_workhistory,
+    web_studyhistory
 ]

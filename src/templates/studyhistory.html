@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>List of Work Expenciences</h1>
+<h1>Study record</h1>
 
 <table style="margin: auto; width: 350px;">
     <thead style="border-spacing: 200px;">
         <tr>
-            <th>Job Title</th>
+            <th>Qualification </th>
             <th colspan="2"></th>
         </tr>
     </thead>
     <tbody>
-        {% for workhistory in workhistories %}
+        {% for studyhistory in studyhistories %}
         <tr>
-            <td><a href="{{ url_for('web_workhistory.view_workhistory', id=workhistory.id)}}">{{ workhistory.job_title }}</a></td>
-            <td><a href="{{ url_for('web_workhistory.update_workhistory', id=workhistory.id) }}">update</a></td>
+            <td><a href="{{ url_for('web_studyhistory.view_studyhistory', id=studyhistory.id)}}">{{ studyhistory.qualification_title }}</a></td>
+            <td><a href="{{ url_for('web_studyhistory.update_studyhistory', id=studyhistory.id) }}">update</a></td>
             <td>
             <button>
-                <form method="POST" action="{{ url_for('web_workhistory.delete_workhistory', id=workhistory.id) }}">
+                <form method="POST" action="{{ url_for('web_studyhistory.delete_studyhistory', id=studyhistory.id) }}">
                     {{ form.csrf_token }}
                     {{ form.submit }}
                 </form>
@@ -28,7 +28,7 @@
     </tbody>
 </table>
 
-<a href="{{ url_for('web_workhistory.create_workhistory') }}">Create New Work History</a>
+<a href="{{ url_for('web_studyhistory.create_studyhistory') }}">Create New Study History</a>
 
 {% for message in get_flashed_messages() %}
 <div class="alert">
