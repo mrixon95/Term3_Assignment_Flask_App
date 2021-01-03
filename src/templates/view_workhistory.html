@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ workhistory.name }}</h1>
+
+<h2>Content</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Job title</th>
+                <th>Company</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Date Start</th>
+                <th>Date End</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ workhistory.job_title }}</td>
+                <td>{{ workhistory.company }}</td>
+                <td>{{ workhistory.city }}</td>
+                <td>{{ workhistory.country }}</td>
+                <td>{{ workhistory.date_start }}</td>
+                <td>{{ workhistory.date_end }}</td>
+                <td>{{ workhistory.last_updated }}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

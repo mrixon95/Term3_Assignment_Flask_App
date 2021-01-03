@@ -68,8 +68,6 @@ def user_login():
     username_submitted = request.json["username"]
     password_submitted = request.json["password"]
 
-    print("username_submitted: " + username_submitted)
-    print("password_submitted: " + password_submitted)
     user = User.query.filter_by(username=username_submitted).first()
 
     if not user or not bcrypt.check_password_hash(user.password, password_submitted):

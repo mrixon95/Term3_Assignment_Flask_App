@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>workhistories</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>workhistory</th>
+            <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for workhistory in workhistories %}
+        <tr>
+            <td><a href="{{ url_for('web_workhistory.view_workhistory', id=workhistory.id)}}">{{ workhistory.job_title }}</a></td>
+            <td><a href="{{ url_for('web_workhistory.update_workhistory', id=workhistory.id) }}">update</a></td>
+            <td>
+            <button>
+                <form method="POST" action="{{ url_for('web_workhistory.delete_workhistory', id=workhistory.id) }}">
+                    {{ form.csrf_token }}
+                    {{ form.submit }}
+                </form>
+            </button>   
+            </td>      
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('web_workhistory.create_workhistory') }}">Create New Workhistory</a>
+
+{% for message in get_flashed_messages() %}
+<div class="alert">
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    {{ message }}
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -15,12 +15,13 @@ ma = Marshmallow()
 bcrypt = Bcrypt()
 jwt = JWTManager()
 migrate = Migrate()
-# login_manager = LoginManager()
+login_manager = LoginManager()
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object("default_settings.app_config")
+    app.config['SECRET_KEY'] = "mrixon95"
 
     # if app.config["ENV"] == "production":
     #     from log_handlers import file_handler
@@ -31,7 +32,7 @@ def create_app():
     bcrypt.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
-    # login_manager.init_app(app)
+    login_manager.init_app(app)
 
     from commands import db_commands
     app.register_blueprint(db_commands)

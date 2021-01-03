@@ -1,4 +1,4 @@
-from main import db
+from main import db, bcrypt
 from datetime import datetime
 from models.StudyHistory import StudyHistory
 from models.WorkHistory import WorkHistory
@@ -10,8 +10,10 @@ from models.Message import Message
 from models.Connection import Connection
 from models.Post import Post
 from models.Likes_Table import Likes_Table
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = "users"
 
     username = db.Column(db.String(), primary_key=True)
@@ -65,6 +67,27 @@ class User(db.Model):
     )
 
     # books = db.relationship("Book", backref="user", lazy="dynamic")
+
+
+    
+    def get_id(self):
+        try:
+            return str(self.username)
+        except AttributeError:
+            raise NotImplementedError('No `id` attribute - override `get_id`')
+    
+    
+    def set_password(self, password):
+        self.password = bcrypt.generate_password_hash(password).decode("utf-8")
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)
+
+
+
+
+
+
 
     def __repr__(self):
         return f"<User {self.email}>"
