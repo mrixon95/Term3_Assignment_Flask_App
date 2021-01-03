@@ -54,7 +54,7 @@ Docs for my app:
 
 
 
-![join_table_example](C:\Users\Owner\Documents\Coder academy\Assignment_T3A3\Assignment\docs\join_table_example.PNG)
+![join_table_example](docs\join_table_example.PNG)
 
 
 
