@@ -74,7 +74,6 @@ def post_id_get_likes(inputted_id):
 @post.route("/get_num_likes/<int:inputted_id>", methods=["GET"])
 def post_id_get_num_likes(inputted_id):
 
-    import json
     post_retrieved = Post.query.filter_by(id=inputted_id)
 
     if not post_retrieved:
