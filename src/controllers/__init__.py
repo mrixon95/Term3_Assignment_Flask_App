@@ -10,6 +10,7 @@ from controllers.Post_controller import post
 from controllers.ITNews_controller import itnews
 from controllers.JobSalary_controller import jobsalary
 from controllers.Image_controller import image
+from controllers.Book_Web_controller import book_web
 
 registerable_controllers = [
     user,
@@ -23,5 +24,6 @@ registerable_controllers = [
     post,
     jobsalary,
     itnews,
-    image
+    image,
+    book_web
 ]
