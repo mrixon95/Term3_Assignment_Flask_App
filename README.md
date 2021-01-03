@@ -2,9 +2,9 @@
 
 This project is made to implement a flask app that returns data from a database and executes without breaking.
 
-**R2:** [Report 1: Privacy and Security Analysis](docs/Report 1 Privacy and Security Report.md)
+**R2:** [Report 1: Privacy and Security Analysis](docs/Report_1_Privacy_and_Security_Report.md)
 
-**R3:** [Report 2 Professional Ethical Legal](docs/Report 2 Professional Ethical Legal.md)
+**R3:** [Report 2 Professional Ethical Legal](docs/Report_2_Professional_Ethical_Legal.md)
 
 My app is designed to be similar to LinkedIn but for IT professionals.
 On ConnectIT, IT professionals will be able to:
