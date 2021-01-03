@@ -54,7 +54,7 @@ Docs for my app:
 
 
 
-![join_table_example](docs\join_table_example.PNG)
+![join_table_example](docs/join_table_example.PNG)
 
 
 
