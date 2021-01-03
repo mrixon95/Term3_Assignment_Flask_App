@@ -26,6 +26,44 @@ Docs for my app:
 
 
 
+**R7:** An example of an API endpoint aggregating data is below. This endpoint gets the number of likes for a post. This can be done by counting the number of distinct users who like a post.
+
+![get_num_likes_example](docs/get_num_likes_example.PNG)
+
+
+
+
+
+## R6: User-interface using Jinja
+
+### URL: http://127.0.0.1:5000/web/login
+
+### Login Page
+
+![jinja_log_in_page](C:\Users\Owner\Documents\Coder academy\Assignment_T3A3\Assignment\docs\jinja_log_in_page.PNG)
+
+### List of work experiences
+
+
+
+![jinja_work_experiences](docs\jinja_work_experiences.PNG)
+
+### R11: Join table example
+
+
+
+
+
+![join_table_example](C:\Users\Owner\Documents\Coder academy\Assignment_T3A3\Assignment\docs\join_table_example.PNG)
+
+
+
+
+
+
+
+
+
 ## Proposed Entity Relationship Diagram
 
 * Each User can have multiple images, certifications, work histories, connections, meetings, messages, study histories, resume/projects, posts, comments and like multiple posts
@@ -73,7 +111,7 @@ These following flask commands below are for automating tasks related to databas
 
 
 
-There are the steps required as part of the continuous integration workflow when pushing modified code to GitHub. File reference ci-cd.yml file
+A CI/CD pipeline can be created as part of the continuous integration workflow when pushing modified code to GitHub.
 
 1. The test_suite job will run on one of GitHub's VMs using the latest Ubuntu operating system. The new code pushed to GitHub is checked out into this VM.
 2. The VM installs python3.8 and installs the dependencies. These dependencies and their version number are written on separate lines in the requirements.txt file.
