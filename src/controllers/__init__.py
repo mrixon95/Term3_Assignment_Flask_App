@@ -26,8 +26,8 @@ registerable_controllers = [
     post,
     jobsalary,
     itnews,
-    image,
     web_users,
     web_workhistory,
-    web_studyhistory
+    web_studyhistory,
+    image
 ]
